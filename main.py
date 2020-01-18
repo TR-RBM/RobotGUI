@@ -48,19 +48,33 @@ class window:
                 vlnu   = int(screen_y/100*_laenge_nach_unten)   # Vertikale länge nach unten
                 hliabst = int(_screen_x/100*_linker_abstand)    # horizontaler linker abstand
 
-                v1 = Line(Point(int(_screen_x/7*1), vobabst), Point(int(_screen_x/7*1), vlnu))
-                v2 = Line(Point(int(_screen_x/7*2), vobabst), Point(int(_screen_x/7*2), vlnu))
-                v3 = Line(Point(int(_screen_x/7*3), vobabst), Point(int(_screen_x/7*3), vlnu))
-                v4 = Line(Point(int(_screen_x/7*4), vobabst), Point(int(_screen_x/7*4), vlnu))
-                v5 = Line(Point(int(_screen_x/7*5), vobabst), Point(int(_screen_x/7*5), vlnu))
-                v6 = Line(Point(int(_screen_x/7*6), vobabst), Point(int(_screen_x/7*6), vlnu))
-                v7 = Line(Point(int(_screen_x),     vobabst), Point(int(_screen_x),     vlnu))
+                v1x = int(_screen_x/7*1)
+                v2x = int(_screen_x/7*2)
+                v3x = int(_screen_x/7*3)
+                v4x = int(_screen_x/7*4)
+                v5x = int(_screen_x/7*5)
+                v6x = int(_screen_x/7*6)
+                v7x = int(_screen_x)
 
-                h1 = Line(Point(hliabst, int(_screen_y/5*1)), Point(_screen_x, _screen_y/5*1))
-                h2 = Line(Point(hliabst, int(_screen_y/5*2)), Point(_screen_x, _screen_y/5*2))
-                h3 = Line(Point(hliabst, int(_screen_y/5*3)), Point(_screen_x, _screen_y/5*3))
-                h4 = Line(Point(hliabst, int(_screen_y/5*4)), Point(_screen_x, _screen_y/5*4))
-                h5 = Line(Point(hliabst, int(_screen_y)),     Point(_screen_x, _screen_y))
+                h1x = int(_screen_y/5*1)
+                h2x = int(_screen_y/5*2)
+                h3x = int(_screen_y/5*3)
+                h4x = int(_screen_y/5*4)
+                h5x = int(_screen_y)
+
+                v1 = Line(Point(v1x, vobabst), Point(v1x, vlnu))
+                v2 = Line(Point(v2x, vobabst), Point(v2x, vlnu))
+                v3 = Line(Point(v3x, vobabst), Point(v3x, vlnu))
+                v4 = Line(Point(v4x, vobabst), Point(v4x, vlnu))
+                v5 = Line(Point(v5x, vobabst), Point(v5x, vlnu))
+                v6 = Line(Point(v6x, vobabst), Point(v6x, vlnu))
+                v7 = Line(Point(v7x, vobabst), Point(v7x, vlnu))
+
+                h1 = Line(Point(hliabst, h1x), Point(_screen_x, h1x))
+                h2 = Line(Point(hliabst, h2x), Point(_screen_x, h2x))
+                h3 = Line(Point(hliabst, h3x), Point(_screen_x, h3x))
+                h4 = Line(Point(hliabst, h4x), Point(_screen_x, h4x))
+                h5 = Line(Point(hliabst, h5x), Point(_screen_x, h5x))
 
                 v1.draw(self.win)
                 v2.draw(self.win)
@@ -77,7 +91,7 @@ class window:
 
                 # Liste mit allen Koordinaten, die in der for schleife zu richtigen variablen werden
                 cord = [] # Deklariere Cords um dort späte die richtigen variablen zu speichern.
-                a1 = []
+                a1 = [[0,0], [_screen_x/7*1,_screen_y/5*1]]
                 a2 = []
                 a3 = []
                 a4 = []
@@ -112,8 +126,6 @@ class window:
                 e5 = []
                 e6 = []
                 e7 = []
-                for i, counter in enumerate(, 1):
-                    print(c, counter)
 
                 for i in range(int(_screen_x)):
                     if i <= (_screen_x/7):
