@@ -56,11 +56,11 @@ class window:
                 v6x = int(_screen_x/7*6)
                 v7x = int(_screen_x)
 
-                h1x = int(_screen_y/5*1)
-                h2x = int(_screen_y/5*2)
-                h3x = int(_screen_y/5*3)
-                h4x = int(_screen_y/5*4)
-                h5x = int(_screen_y)
+                h1y = int(_screen_y/5*1)
+                h2y = int(_screen_y/5*2)
+                h3y = int(_screen_y/5*3)
+                h4y = int(_screen_y/5*4)
+                h5y = int(_screen_y)
 
                 v1 = Line(Point(v1x, vobabst), Point(v1x, vlnu))
                 v2 = Line(Point(v2x, vobabst), Point(v2x, vlnu))
@@ -70,11 +70,11 @@ class window:
                 v6 = Line(Point(v6x, vobabst), Point(v6x, vlnu))
                 v7 = Line(Point(v7x, vobabst), Point(v7x, vlnu))
 
-                h1 = Line(Point(hliabst, h1x), Point(_screen_x, h1x))
-                h2 = Line(Point(hliabst, h2x), Point(_screen_x, h2x))
-                h3 = Line(Point(hliabst, h3x), Point(_screen_x, h3x))
-                h4 = Line(Point(hliabst, h4x), Point(_screen_x, h4x))
-                h5 = Line(Point(hliabst, h5x), Point(_screen_x, h5x))
+                h1 = Line(Point(hliabst, h1y), Point(_screen_x, h1y))
+                h2 = Line(Point(hliabst, h2y), Point(_screen_x, h2y))
+                h3 = Line(Point(hliabst, h3y), Point(_screen_x, h3y))
+                h4 = Line(Point(hliabst, h4y), Point(_screen_x, h4y))
+                h5 = Line(Point(hliabst, h5y), Point(_screen_x, h5y))
 
                 v1.draw(self.win)
                 v2.draw(self.win)
@@ -91,7 +91,7 @@ class window:
 
                 # Liste mit allen Koordinaten, die in der for schleife zu richtigen variablen werden
                 cord = [] # Deklariere Cords um dort späte die richtigen variablen zu speichern.
-                a1 = [[0,0], [_screen_x/7*1,_screen_y/5*1]]
+                a1 = [[0,0], [v1x, h1y]
                 a2 = []
                 a3 = []
                 a4 = []
@@ -127,10 +127,11 @@ class window:
                 e6 = []
                 e7 = []
 
-                for i in range(int(_screen_x)):
-                    if i <= (_screen_x/7):
-                        a1.append(i)
-                        print(a1)
+                print()
+                # for i in range(int(_screen_x)):
+                #     if i <= (_screen_x/7):
+                #         a1.append(i)
+                #         print(a1)
 
                 del v1, v2 ,v3, v4, v5, v6 ,v7, h1 ,h2 ,h3 ,h4, h5 # Lösche variablen die nicht mehr gebraucht werden
                 del vobabst, vlnu, hliabst, _screen_x, screen_y, _oberer_abstand, _laenge_nach_unten, _linker_abstand, _laenge_nach_rechts
