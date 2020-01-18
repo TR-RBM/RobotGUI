@@ -112,6 +112,9 @@ class window:
                 e5 = []
                 e6 = []
                 e7 = []
+                for i, counter in enumerate(, 1):
+                    print(c, counter)
+
                 for i in range(int(_screen_x)):
                     if i <= (_screen_x/7):
                         a1.append(i)
@@ -127,7 +130,7 @@ class window:
             print("test", test)
 
 
-# Name: read_resolution ( int:STANDART_X_POS , int:STANDART_Y_POS, str: POS x/y/xy)
+# Name: read_resolution ( int:STANDART_X_POS , int:STANDART_Y_POS, str: POS x/y/xy, log)
 # Nutzen: Liest die Bildschirmgröße
 def read_resolution(default_x, default_y, pos, log):
     if platform.system() == "Windows":
