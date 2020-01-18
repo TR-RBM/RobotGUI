@@ -125,7 +125,7 @@ class window:
 
                 del _list
                 del v1, v2 ,v3, v4, v5, v6 ,v7, h1 ,h2 ,h3 ,h4, h5 # Lösche variablen die nicht mehr gebraucht werden
-                del vobabst, vlänu, hliabst, _screen_x, screen_y, _oberer_abstand, _länge_nach_unten, _linker_abstand, _länge_nach_rechts
+                del vobabst, vlnu, hliabst, _screen_x, screen_y, _oberer_abstand, _laenge_nach_unten, _linker_abstand, _laenge_nach_rechts
                 message = Text(Point(screen_x/100*88,50), "Bitte wähle einen Startpunkt\n indem du mit der Maus auf ein Feld drückst.")
                 message.draw(self.win)
                 first_run = False
