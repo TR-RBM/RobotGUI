@@ -11,15 +11,12 @@
 from graphics import *
 import subprocess as sp
 import re, math, time, platform
-#try:
-import ctypes
-#except:
-#    print("Error while importing win32api..")
-#############################
+try:
+    import ctypes
+except:
+    print("Error while importing win32api..")
 
-###############
-# Einstellungen
-# Standart Bildschirm Auflösung
+#
 default_x = 480
 default_y = 320
 # Programm name
@@ -120,10 +117,6 @@ class window:
                         a1.append(i)
                         print(a1)
 
-
-
-
-                del _list
                 del v1, v2 ,v3, v4, v5, v6 ,v7, h1 ,h2 ,h3 ,h4, h5 # Lösche variablen die nicht mehr gebraucht werden
                 del vobabst, vlnu, hliabst, _screen_x, screen_y, _oberer_abstand, _laenge_nach_unten, _linker_abstand, _laenge_nach_rechts
                 message = Text(Point(screen_x/100*88,50), "Bitte wähle einen Startpunkt\n indem du mit der Maus auf ein Feld drückst.")
