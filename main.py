@@ -40,24 +40,24 @@ class window:
                 # v =vertikal / h = horizontal
 
                 _oberer_abstand = 0
-                _länge_nach_unten = 80
+                _laenge_nach_unten = 80
                 _linker_abstand = 0
-                _länge_nach_rechts = 80
+                _laenge_nach_rechts = 80
 
                 _screen_x = (screen_x/100*80)
                 _screen_y = (screen_y/100*80)
 
                 vobabst = int(_screen_y/100*_oberer_abstand)    # Vertikaler oberer abstand
-                vlänu   = int(screen_y/100*_länge_nach_unten)   # Vertikale länge nach unten
+                vlnu   = int(screen_y/100*_laenge_nach_unten)   # Vertikale länge nach unten
                 hliabst = int(_screen_x/100*_linker_abstand)    # horizontaler linker abstand
 
-                v1 = Line(Point(int(_screen_x/7*1), vobabst), Point(int(_screen_x/7*1), vlänu))
-                v2 = Line(Point(int(_screen_x/7*2), vobabst), Point(int(_screen_x/7*2), vlänu))
-                v3 = Line(Point(int(_screen_x/7*3), vobabst), Point(int(_screen_x/7*3), vlänu))
-                v4 = Line(Point(int(_screen_x/7*4), vobabst), Point(int(_screen_x/7*4), vlänu))
-                v5 = Line(Point(int(_screen_x/7*5), vobabst), Point(int(_screen_x/7*5), vlänu))
-                v6 = Line(Point(int(_screen_x/7*6), vobabst), Point(int(_screen_x/7*6), vlänu))
-                v7 = Line(Point(int(_screen_x),     vobabst), Point(int(_screen_x),     vlänu))
+                v1 = Line(Point(int(_screen_x/7*1), vobabst), Point(int(_screen_x/7*1), vlnu))
+                v2 = Line(Point(int(_screen_x/7*2), vobabst), Point(int(_screen_x/7*2), vlnu))
+                v3 = Line(Point(int(_screen_x/7*3), vobabst), Point(int(_screen_x/7*3), vlnu))
+                v4 = Line(Point(int(_screen_x/7*4), vobabst), Point(int(_screen_x/7*4), vlnu))
+                v5 = Line(Point(int(_screen_x/7*5), vobabst), Point(int(_screen_x/7*5), vlnu))
+                v6 = Line(Point(int(_screen_x/7*6), vobabst), Point(int(_screen_x/7*6), vlnu))
+                v7 = Line(Point(int(_screen_x),     vobabst), Point(int(_screen_x),     vlnu))
 
                 h1 = Line(Point(hliabst, int(_screen_y/5*1)), Point(_screen_x, _screen_y/5*1))
                 h2 = Line(Point(hliabst, int(_screen_y/5*2)), Point(_screen_x, _screen_y/5*2))
