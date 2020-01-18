@@ -91,7 +91,7 @@ class window:
 
                 # Liste mit allen Koordinaten, die in der for schleife zu richtigen variablen werden
                 cord = [] # Deklariere Cords um dort späte die richtigen variablen zu speichern.
-                a1 = [[0,0], [v1x, h1y]
+                a1 = [[0,0], [v1x, h1y]]
                 a2 = []
                 a3 = []
                 a4 = []
