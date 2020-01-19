@@ -93,7 +93,7 @@ class window:
                 h4.draw(self.win)
                 h5.draw(self.win)
 
-                message = Text(Point(screen_x/100*88,50), "Bitte wähle einen positionpunkt\n indem du mit der Maus auf ein Feld drückst.")
+                message = Text(Point(screen_x/100*90,60), "Bitte wähle einen positionpunkt\n indem du mit der Maus auf ein Feld drückst.")
                 message.draw(self.win)
 
 
