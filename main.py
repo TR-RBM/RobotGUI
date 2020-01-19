@@ -29,6 +29,7 @@ class window:
         print(win, screen_x, screen_y)
         self.win = win
         first_run = True
+        old_position = ""
         aktuel_position = ""
         while True:
 
@@ -92,13 +93,13 @@ class window:
 
                 # Liste mit allen Koordinaten, die in der for schleife zu richtigen variablen werden
                 cord = [] # Deklariere Cords um dort späte die richtigen variablen zu speichern.
-                a1 = [[0,0], [v1x, h1y]]
-                a2 = []
-                a3 = []
-                a4 = []
-                a5 = []
-                a6 = []
-                a7 = []
+                a1 = [[0    ,0  ], [v1x, h1y] ]
+                a2 = [[v1x  ,0  ], [v2x, h1y] ]
+                a3 = [[v1x  ,0  ], [v3x, h1y] ]
+                a4 = [[v1x  ,0  ], [v4x, h1y] ]
+                a5 = [[v1x  ,0  ], [v5x, h1y] ]
+                a6 = [[v1x  ,0  ], [vx, h1y] ]
+                a7 = [[v1x  ,0  ], [v1x, h1y] ]
                 b1 = []
                 b2 = []
                 b3 = []
@@ -143,12 +144,19 @@ class window:
             position = self.win.getMouse()
             xm = position.getX()
             ym = position.getY()
-            print ("xm" , xm)
-            print ("ym" , ym)
+            #print ("xm" , xm)
+            #print ("ym" , ym)
+
             if aktuel_position == "" :
                 print("die aktuel position ist die start position")
+            #elif  old_position == aktuel_position :
+            #    print("Der gewünscht platz ist die aktuelle position" , aktuel_position)
+            #    old_position = "0"
+                print(aktuel_position , old_position)
             else:
                 print("die aktuel position",aktuel_position)
+            #    print(old_position)
+            #aktuel_position = old_position
             if xm > 1383 or ym > 780 :
                 print("außerhalb den breich")
             else :
@@ -299,15 +307,12 @@ def read_resolution(default_x, default_y, pos, log):
         print("Unknown error while trying to output screen resolution.")
         time.sleep(5)
 
+
 def main():
     screen_x = int(int(read_resolution(default_x, default_y, "x", log))/100*90)
     screen_y = int(int(read_resolution(default_x, default_y, "y", log))/100*90)
     win = GraphWin(programm_name, screen_x, screen_y)
     main_window = window(win,screen_x,screen_y, log)
-
-
-
-
 
 
 if __name__ == "__main__":
