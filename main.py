@@ -27,10 +27,11 @@ log = False
 class window:
     def __init__(self, win, screen_x, screen_y, log):
         print(win, screen_x, screen_y)
+        self.screen_x = screen_x
+        self.screen_y = screen_y
         self.win = win
         self.first_run = True
         self.old_position = ""
-        self.aktuel_position = ""
         self.first_klick = True
         self.generate_vars = True
         while True:
@@ -93,16 +94,16 @@ class window:
                 h4.draw(self.win)
                 h5.draw(self.win)
 
-                message = Text(Point(screen_x/100*90,60), "Bitte wähle einen positionpunkt\n indem du mit der Maus auf ein Feld drückst.")
-                message.draw(self.win)
+                #message = Text(Point(screen_x/100*90,60), "Bitte wähle einen positionpunkt\n indem du mit der Maus auf ein Feld drückst.")
+                #message.draw(self.win)
 
 
             self.position = self.get_current_position(log)
             print("CORDS:", self.xm,self.ym)
             self.check_current_position()
             self.draw_current_spot()
-
-
+            #self.draw_message()
+            print(self.check_current_position())
 
 
 
@@ -196,16 +197,19 @@ class window:
     def check_current_position(self):
         position = self.position
         if position == "0" :
-            print("Außerhalb des Breiches.")
+            print("TEST")
+            return 1
         elif self.old_position == "" and position != self.old_position :
-            print(position ,"ist die aktuelle start Position.")
+            print("TEST")
             self.old_position = position
+            return 2
         elif position == self.old_position :
-            print("Der gewünschte Platz ist bereits die aktuelle Position." , self.old_position)
+            print("TEST")
+            return 3
         elif position != self.old_position :
-            print(self.old_position, "ist die aktuelle Position.")
-            print(position, "wurde gedückt.")
             self.old_position = position
+            print("TEST")
+            return 4
 
 
     def draw_current_spot(self):
@@ -296,6 +300,25 @@ class window:
 
         print("Done")
         self.generate_vars = False
+
+    #def draw_message(self):
+        #if message != "" :
+        #    message.undraw(self.win)
+    #    msg1="Außerhalb des Breiches."
+    #    msg2=str(self.position)+" ist die aktuelle start Position."
+    #    msg3="Der gewünschte Platz ist bereits die aktuelle Position."+str(self.old_position)
+    #    msg4=str(self.old_position)+"ist die aktuelle Position."
+    #    msg5=str(self.position)+"wurde gedückt."
+    #    print(self.check_current_position())
+    #    if self.check_current_position() == 1 :
+    #        message = Text(Point(self.screen_x/100*90,60), msg1)
+    #    elif self.check_current_position() == 2 :
+    #        message = Text(Point(self.screen_x/100*90,60), msg2)
+    #    elif self.check_current_position() == 3 :
+    #        message = Text(Point(self.screen_x/100*90,60), msg3)
+    #    elif self.check_current_position() == 4 :
+    #        message = Text(Point(self.screen_x/100*90,60), msg4 + msg5)
+    #    message.draw(self.win)
 
 
 # Name: read_resolution ( int:STANDART_X_POS , int:STANDART_Y_POS, str: POS x/y/xy, log)
