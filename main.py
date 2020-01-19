@@ -32,6 +32,7 @@ class window:
         self.old_position = ""
         self.aktuel_position = ""
         self.first_klick = True
+        self.generate_vars = True
         while True:
 
             # Set background and draw grid
@@ -92,22 +93,22 @@ class window:
                 h4.draw(self.win)
                 h5.draw(self.win)
 
-                message = Text(Point(screen_x/100*88,50), "Bitte wähle einen Startpunkt\n indem du mit der Maus auf ein Feld drückst.")
+                message = Text(Point(screen_x/100*88,50), "Bitte wähle einen positionpunkt\n indem du mit der Maus auf ein Feld drückst.")
                 message.draw(self.win)
 
                 #position = self.win.getMouse()
                 #xm = position.getX()
                 #ym = position.getY()
-                #start = self.get_current_position(xm, ym, log)
-                #check = self.check_current_position(start)
+                #position = self.get_current_position(xm, ym, log)
+                #check = self.check_current_position(position)
 
                 #self.first_run = False
 
-            
-            self.start = self.get_current_position(log)
+
+            self.position = self.get_current_position(log)
             print("CORDS:", self.xm,self.ym)
             self.check_current_position()
-
+            self.draw_current_spot()
 
 
 
@@ -198,17 +199,131 @@ class window:
                     if log == True:
                         print("Es wurde:", _out , "gedrückt")
                     return _out
+    # name: check_current_position()
+    # Funktion: Überprüfe ob ein Bereich mehrfach gedrückt wurde
     def check_current_position(self):
-        start = self.start
-        if self.old_position == "" and start != self.old_position :
-            print(start ,"ist die aktuelle start Position.")
-            self.old_position = start
-        elif start == self.old_position :
-            print("Der gewünschte Platz ist bereits die aktuelle Position" , self.old_position)
-        elif start != self.old_position :
+        position = self.position
+        if position == "0" :
+            print("Außerhalb des Breiches.")
+        elif self.old_position == "" and position != self.old_position :
+            print(position ,"ist die aktuelle start Position.")
+            self.old_position = position
+        elif position == self.old_position :
+            print("Der gewünschte Platz ist bereits die aktuelle Position." , self.old_position)
+        elif position != self.old_position :
             print(self.old_position, "ist die aktuelle Position.")
-            print(start, "wurde gedückt")
-            self.old_position = start
+            print(position, "wurde gedückt.")
+            self.old_position = position
+#rA1.undraw(self.win)
+    def draw_current_spot(self):
+        spots=["A1" ,"A2" , "A3", "A4", "A5",
+                "B1", "B2", "B3", "B4", "B5",
+                "C1", "C2", "C3", "C4", "C5",
+                "D1", "D2", "D3", "D4", "D5",
+                "E1" ,"E2" ,"E3" ,"E4" ,"E5",
+                "F1", "F2", "F3", "F4" ,"F5" ,
+                "G1" ,"G2" ,"G3" , "G4", "G5"]
+
+        #rA2 = Rectangle(Point(0,0), Point(self.v1x,self.h1y))
+        for i in spots:
+            #if i == self.position :
+            for i in spots:
+                if i[0] == "A":
+                    X1 = "0"
+                    X2 = "self.v1x"
+                    if i[1] != "1":
+                        Y1 = "self.h"+str(int(i[1])-1)+"y"
+                        Y2 = "self.h"+str(i[1])+"y"
+                    else:
+                        Y1 = "0"
+                        Y2 = "self.h1y"
+                if i[0] == "B":
+                    X1 = "self.v1x"
+                    X2 = "self.v2x"
+                    if i[1] != "1":
+                        Y1 = "self.h"+str(int(i[1])-1)+"y"
+                        Y2 = "self.h"+str(i[1])+"y"
+                    else:
+                        Y1 = "0"
+                        Y2 = "self.h1y"
+                if i[0] == "C":
+                    X1 = "self.v2x"
+                    X2 = "self.v3x"
+                    if i[1] != "1":
+                        Y1 = "self.h"+str(int(i[1])-1)+"y"
+                        Y2 = "self.h"+str(i[1])+"y"
+                    else:
+                        Y1 = "0"
+                        Y2 = "self.h1y"
+                if i[0] == "D":
+                    X1 = "self.v3x"
+                    X2 = "self.v4x"
+                    if i[1] != "1":
+                        Y1 = "self.h"+str(int(i[1])-1)+"y"
+                        Y2 = "self.h"+str(i[1])+"y"
+                    else:
+                        Y1 = "0"
+                        Y2 = "self.h1y"
+                if i[0] == "E":
+                    X1 = "self.v4x"
+                    X2 = "self.v5x"
+                    if i[1] != "1":
+                        Y1 = "self.h"+str(int(i[1])-1)+"y"
+                        Y2 = "self.h"+str(i[1])+"y"
+                    else:
+                        Y1 = "0"
+                        Y2 = "self.h1y"
+                if i[0] == "F":
+                    X1 = "self.v5x"
+                    X2 = "self.v6x"
+                    if i[1] != "1":
+                        Y1 = "self.h"+str(int(i[1])-1)+"y"
+                        Y2 = "self.h"+str(i[1])+"y"
+                    else:
+                        Y1 = "0"
+                        Y2 = "self.h1y"
+                if i[0] == "G":
+                    X1 = "self.v6x"
+                    X2 = "self.v7x"
+                    if i[1] != "1":
+                        Y1 = "self.h"+str(int(i[1])-1)+"y"
+                        Y2 = "self.h"+str(i[1])+"y"
+                    else:
+                        Y1 = "0"
+                        Y2 = "self.h1y"
+
+                if self.generate_vars == True:
+                    execute_string = "self.pint"+str(i)+" = Rectangle(Point("+X1+","+Y1+"), Point("+X2+","+Y2+"))"
+                    exec(execute_string)
+                if self.position == i:
+                    execute_string = "self.pint"+str(i)+".setFill(\"red\")"
+                    exec(execute_string)
+                else:
+                    execute_string = "self.pint"+str(i)+".setFill(\"white\")"
+                execute_string = "self.pint"+str(i)+".draw(self.win)"
+                exec(execute_string)
+        self.generate_vars = False
+
+            #if i == self.old_position :
+
+            #pint = Rectangle(Point(X1,Y1), Point(X1,Y1))
+
+
+                    #    else:
+                    #        X1 =
+                    #        Y1 = 0
+                    #        X2 = "self.v" + i[1] +"x"
+                    #        Y2 =
+                #spotx = str(i)+"draw"
+
+            #rA1 = Rectangle(Point(0,0), Point(self.v1x,self.h1y))
+            #rA2 = Rectangle(Point(0,0), Point(self.v1x,self.h1y))
+        #exec()
+        #if self.position == "A1":
+        #    rA1 = Rectangle(Point(0,0), Point(self.v1x,self.h1y))
+        #    rA1.setFill("red")
+        #    rA1.draw(self.win)
+            #rA1.undraw(self.win)
 
 # Name: read_resolution ( int:STANDART_X_POS , int:STANDART_Y_POS, str: POS x/y/xy, log)
 # Nutzen: Liest die Bildschirmgröße
