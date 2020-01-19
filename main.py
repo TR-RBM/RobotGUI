@@ -29,6 +29,7 @@ class window:
         print(win, screen_x, screen_y)
         self.win = win
         first_run = True
+        aktuel_position = ""
         while True:
 
             # Set background and draw grid
@@ -144,31 +145,120 @@ class window:
             ym = position.getY()
             print ("xm" , xm)
             print ("ym" , ym)
-            if xm > 1345 or ym > 780 :
+            if aktuel_position == "" :
+                print("die aktuel position ist die start position")
+            else:
+                print("die aktuel position",aktuel_position)
+            if xm > 1383 or ym > 780 :
                 print("außerhalb den breich")
             else :
                 print("Point", xm , ym)
-            #if xm >= 197 an  > 0  and ym > 154 and  > 0 :
+
             if 197 >= xm >= 0 and 154 >= ym >= 0:
                 print ("A1 - wurde gedruckt")
+                aktuel_position = "A1"
             if 197 >= xm >= 0 and 310 >= ym >= 155:
                 print ("A2 - wurde gedruckt")
+                aktuel_position = "A2"
             if 197 >= xm >= 0 and 455 >= ym >= 310:
                 print ("A3 - wurde gedruckt")
+                aktuel_position = "A3"
             if 197 >= xm >= 0 and 622 >= ym >= 455:
                 print ("A4 - wurde gedruckt")
+                aktuel_position = "A4"
             if 197 >= xm >= 0 and 778 >= ym >= 622:
                 print ("A5 - wurde gedruckt")
+                aktuel_position = "A5"
             if 394 >= xm >= 197 and 154 >= ym >= 0:
                 print ("B1 - wurde gedruckt")
+                aktuel_position = "B1"
             if 394 >= xm >= 197 and 310 >= ym >= 155:
                 print ("B2 - wurde gedruckt")
+                aktuel_position = "B2"
             if 394 >= xm >= 197 and 455 >= ym >= 310:
                 print ("B3 - wurde gedruckt")
+                aktuel_position = "B3"
             if 394 >= xm >= 197 and 622 >= ym >= 455:
                 print ("B4 - wurde gedruckt")
+                aktuel_position = "B4"
             if 394 >= xm >= 197 and 778 >= ym >= 622:
                 print ("B5 - wurde gedruckt")
+                aktuel_position = "B5"
+            if 591 >= xm >= 394 and 154 >= ym >= 0:
+                print ("C1 - wurde gedruckt")
+                aktuel_position = "C1"
+            if 591 >= xm >= 394 and 310 >= ym >= 155:
+                print ("C2 - wurde gedruckt")
+                aktuel_position = "C2"
+            if 591 >= xm >= 394 and 455 >= ym >= 310:
+                print ("C3 - wurde gedruckt")
+                aktuel_position = "C3"
+            if 591 >= xm >= 394 and 622 >= ym >= 455:
+                print ("C4 - wurde gedruckt")
+                aktuel_position = "C4"
+            if 591 >= xm >= 394 and 778 >= ym >= 622:
+                print ("C5 - wurde gedruckt")
+                aktuel_position = "C5"
+            if 789 >= xm >= 591 and 154 >= ym >= 0:
+                print ("D1 - wurde gedruckt")
+                aktuel_position = "D1"
+            if 789 >= xm >= 591 and 310 >= ym >= 155:
+                print ("D2 - wurde gedruckt")
+                aktuel_position = "D2"
+            if 789 >= xm >= 591 and 455 >= ym >= 310:
+                print ("D3 - wurde gedruckt")
+                aktuel_position = "D3"
+            if 789 >= xm >= 591 and 622 >= ym >= 455:
+                print ("D4 - wurde gedruckt")
+                aktuel_position = "D4"
+            if 789 >= xm >= 591 and 778 >= ym >= 622:
+                print ("D5 - wurde gedruckt")
+                aktuel_position = "D5"
+            if 995 >= xm >= 789 and 154 >= ym >= 0:
+                print ("E1 - wurde gedruckt")
+                aktuel_position = "E1"
+            if 995 >= xm >= 789 and 310 >= ym >= 155:
+                print ("E2 - wurde gedruckt")
+                aktuel_position = "E2"
+            if 995 >= xm >= 789 and 455 >= ym >= 310:
+                print ("E3 - wurde gedruckt")
+                aktuel_position = "E3"
+            if 995 >= xm >= 789 and 622 >= ym >= 455:
+                print ("E4 - wurde gedruckt")
+                aktuel_position = "E4"
+            if 995 >= xm >= 789 and 778 >= ym >= 622:
+                print ("E5 - wurde gedruckt")
+                aktuel_position = "E5"
+            if 1183 >= xm >= 995 and 154 >= ym >= 0:
+                print ("F1 - wurde gedruckt")
+                aktuel_position = "F1"
+            if 1183 >= xm >= 995 and 310 >= ym >= 155:
+                print ("F2 - wurde gedruckt")
+                aktuel_position = "F2"
+            if 1183 >= xm >= 995 and 455 >= ym >= 310:
+                print ("F3 - wurde gedruckt")
+                aktuel_position = "F3"
+            if 1183 >= xm >= 995 and 622 >= ym >= 455:
+                print ("F4 - wurde gedruckt")
+                aktuel_position = "F4"
+            if 1183 >= xm >= 995 and 778 >= ym >= 622:
+                print ("F5 - wurde gedruckt")
+                aktuel_position = "F5"
+            if 1382 >= xm >= 1183 and 154 >= ym >= 0:
+                print ("G1 - wurde gedruckt")
+                aktuel_position = "G1"
+            if 1382 >= xm >= 1183 and 310 >= ym >= 155:
+                print ("G2 - wurde gedruckt")
+                aktuel_position = "G2"
+            if 1382 >= xm >= 1183 and 455 >= ym >= 310:
+                print ("G3 - wurde gedruckt")
+                aktuel_position = "G3"
+            if 1382 >= xm >= 1183 and 622 >= ym >= 455:
+                print ("G4 - wurde gedruckt")
+                aktuel_position = "G4"
+            if 1382 >= xm >= 1183 and 778 >= ym >= 622:
+                print ("G5 - wurde gedruckt")
+                aktuel_position = "G5"
 # Name: read_resolution ( int:STANDART_X_POS , int:STANDART_Y_POS, str: POS x/y/xy, log)
 # Nutzen: Liest die Bildschirmgröße
 def read_resolution(default_x, default_y, pos, log):
