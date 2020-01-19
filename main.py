@@ -139,8 +139,15 @@ class window:
                 message.draw(self.win)
                 first_run = False
 
-            test = self.win.getMouse()
-            print("test", test)
+            position = self.win.getMouse()
+            xm = position.getX()
+            ym = position.getY()
+            #print ("xm" , xm)
+            #print ("ym" , ym)
+            if xm > 1345 or ym > 780 :
+                print("außerhalb den breich")
+            else :
+                print("Point", xm , ym)
 
 
 # Name: read_resolution ( int:STANDART_X_POS , int:STANDART_Y_POS, str: POS x/y/xy, log)
