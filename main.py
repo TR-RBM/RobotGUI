@@ -142,14 +142,33 @@ class window:
             position = self.win.getMouse()
             xm = position.getX()
             ym = position.getY()
-            #print ("xm" , xm)
-            #print ("ym" , ym)
+            print ("xm" , xm)
+            print ("ym" , ym)
             if xm > 1345 or ym > 780 :
                 print("außerhalb den breich")
             else :
                 print("Point", xm , ym)
-
-
+            #if xm >= 197 an  > 0  and ym > 154 and  > 0 :
+            if 197 >= xm >= 0 and 154 >= ym >= 0:
+                print ("A1 - wurde gedruckt")
+            if 197 >= xm >= 0 and 310 >= ym >= 155:
+                print ("A2 - wurde gedruckt")
+            if 197 >= xm >= 0 and 455 >= ym >= 310:
+                print ("A3 - wurde gedruckt")
+            if 197 >= xm >= 0 and 622 >= ym >= 455:
+                print ("A4 - wurde gedruckt")
+            if 197 >= xm >= 0 and 778 >= ym >= 622:
+                print ("A5 - wurde gedruckt")
+            if 394 >= xm >= 197 and 154 >= ym >= 0:
+                print ("B1 - wurde gedruckt")
+            if 394 >= xm >= 197 and 310 >= ym >= 155:
+                print ("B2 - wurde gedruckt")
+            if 394 >= xm >= 197 and 455 >= ym >= 310:
+                print ("B3 - wurde gedruckt")
+            if 394 >= xm >= 197 and 622 >= ym >= 455:
+                print ("B4 - wurde gedruckt")
+            if 394 >= xm >= 197 and 778 >= ym >= 622:
+                print ("B5 - wurde gedruckt")
 # Name: read_resolution ( int:STANDART_X_POS , int:STANDART_Y_POS, str: POS x/y/xy, log)
 # Nutzen: Liest die Bildschirmgröße
 def read_resolution(default_x, default_y, pos, log):
