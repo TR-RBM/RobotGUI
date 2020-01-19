@@ -206,7 +206,8 @@ class window:
             print(self.old_position, "ist die aktuelle Position.")
             print(position, "wurde gedückt.")
             self.old_position = position
-#rA1.undraw(self.win)
+
+
     def draw_current_spot(self):
         spots=["A1" ,"A2" , "A3", "A4", "A5",
                 "B1", "B2", "B3", "B4", "B5",
@@ -215,9 +216,6 @@ class window:
                 "E1" ,"E2" ,"E3" ,"E4" ,"E5",
                 "F1", "F2", "F3", "F4" ,"F5" ,
                 "G1" ,"G2" ,"G3" , "G4", "G5"]
-
-        #rA2 = Rectangle(Point(0,0), Point(self.v1x,self.h1y))
-            #if i == self.position :
         for i in spots:
             if i[0] == "A":
                 X1 = "0"
