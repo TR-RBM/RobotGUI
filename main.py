@@ -103,7 +103,7 @@ class window:
 
                 #self.first_run = False
 
-            position = self.win.getMouse()
+            
             self.start = self.get_current_position(log)
             print("CORDS:", self.xm,self.ym)
             self.check_current_position()
