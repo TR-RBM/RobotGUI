@@ -98,15 +98,15 @@ class window:
                 a3 = [[v1x  ,0  ], [v3x, h1y] ]
                 a4 = [[v1x  ,0  ], [v4x, h1y] ]
                 a5 = [[v1x  ,0  ], [v5x, h1y] ]
-                a6 = [[v1x  ,0  ], [vx, h1y] ]
-                a7 = [[v1x  ,0  ], [v1x, h1y] ]
-                b1 = []
-                b2 = []
-                b3 = []
-                b4 = []
-                b5 = []
-                b6 = []
-                b7 = []
+                a6 = [[v1x  ,0  ], [v6x, h1y] ]
+                a7 = [[v1x  ,0  ], [v7x, h1y] ]
+                # b1 = [[v2x  ,]
+                # b2 = [[v2x  ,]
+                # b3 = [[v2x  ,]
+                # b4 = [[v2x  ,]
+                # b5 = [[v2x  ,]
+                # b6 = [[v2x  ,]
+                # b7 = [[v2x  ,]
                 c1 = []
                 c2 = []
                 c3 = []
@@ -135,8 +135,11 @@ class window:
                 #         a1.append(i)
                 #         print(a1)
 
-                del v1, v2 ,v3, v4, v5, v6 ,v7, h1 ,h2 ,h3 ,h4, h5 # Lösche variablen die nicht mehr gebraucht werden
-                del vobabst, vlnu, hliabst, _screen_x, screen_y, _oberer_abstand, _laenge_nach_unten, _linker_abstand, _laenge_nach_rechts
+                print(v1x, v2x ,v3x, v4x, v5x, v6x ,v7x, h1y ,h2y ,h3y ,h4y, h5y) # Lösche variablen die nicht mehr gebraucht werden
+                #print(vobabst, vlnu, hliabst, _oberer_abstand, _laenge_nach_unten, _linker_abstand, _laenge_nach_rechts)
+
+                # del v1, v2 ,v3, v4, v5, v6 ,v7, h1 ,h2 ,h3 ,h4, h5 # Lösche variablen die nicht mehr gebraucht werden
+                # del vobabst, vlnu, hliabst, _oberer_abstand, _laenge_nach_unten, _linker_abstand, _laenge_nach_rechts
                 message = Text(Point(screen_x/100*88,50), "Bitte wähle einen Startpunkt\n indem du mit der Maus auf ein Feld drückst.")
                 message.draw(self.win)
                 first_run = False
@@ -146,7 +149,8 @@ class window:
             ym = position.getY()
             #print ("xm" , xm)
             #print ("ym" , ym)
-
+            xposition = screen_x * 9 / 90
+            print("firas",xposition)
             if aktuel_position == "" :
                 print("die aktuel position ist die start position")
             #elif  old_position == aktuel_position :
