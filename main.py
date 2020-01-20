@@ -33,14 +33,19 @@ class window:
                 _laenge_nach_unten = 80
                 _linker_abstand = 0
                 _laenge_nach_rechts = 80
-
                 _screen_x = (screen_x/100*80)
                 _screen_y = (screen_y/100*80)
 
                 vobabst = int(_screen_y/100*_oberer_abstand)    # Vertikaler oberer abstand
                 vlnu   = int(screen_y/100*_laenge_nach_unten)   # Vertikale länge nach unten
                 hliabst = int(_screen_x/100*_linker_abstand)    # horizontaler linker abstand
-
+                obere_linie = Line(Point(0,1), Point(_screen_x, 1))
+                linke_linie = Line(Point(1,0), Point(1, _screen_y))
+                obere_linie.setWidth(2)
+                linke_linie.setWidth(2)
+                obere_linie.draw(self.win)
+                linke_linie.draw(self.win)
+                #self.v0x = int(_screen_x, 1)
                 self.v1x = int(_screen_x/7*1)
                 self.v2x = int(_screen_x/7*2)
                 self.v3x = int(_screen_x/7*3)
@@ -48,6 +53,8 @@ class window:
                 self.v5x = int(_screen_x/7*5)
                 self.v6x = int(_screen_x/7*6)
                 self.v7x = int(_screen_x/7*7)
+
+
 
                 self.h1y = int(_screen_y/5*1)
                 self.h2y = int(_screen_y/5*2)
@@ -59,42 +66,18 @@ class window:
                 self.h = [self.h1y, self.h2y, self.h3y, self.h4y, self.h5y]
                 for i in self.v :
                     vx = Line(Point(i, vobabst), Point(i, vlnu))
+                    vx.setWidth(2)
                     vx.draw(self.win)
                 for i in self.h :
                     hy = Line(Point(hliabst, i), Point(_screen_x, i))
+                    hy.setWidth(2)
                     hy.draw(self.win)
-                # v1 = Line(Point(self.v1x, vobabst), Point(self.v1x, vlnu))
-                # v2 = Line(Point(self.v2x, vobabst), Point(self.v2x, vlnu))
-                # v3 = Line(Point(self.v3x, vobabst), Point(self.v3x, vlnu))
-                # v4 = Line(Point(self.v4x, vobabst), Point(self.v4x, vlnu))
-                # v5 = Line(Point(self.v5x, vobabst), Point(self.v5x, vlnu))
-                # v6 = Line(Point(self.v6x, vobabst), Point(self.v6x, vlnu))
-                # v7 = Line(Point(self.v7x, vobabst), Point(self.v7x, vlnu))
-                #
-                # h1 = Line(Point(hliabst, self.h1y), Point(_screen_x, self.h1y))
-                # h2 = Line(Point(hliabst, self.h2y), Point(_screen_x, self.h2y))
-                # h3 = Line(Point(hliabst, self.h3y), Point(_screen_x, self.h3y))
-                # h4 = Line(Point(hliabst, self.h4y), Point(_screen_x, self.h4y))
-                # h5 = Line(Point(hliabst, self.h5y), Point(_screen_x, self.h5y))
-                #
-                # v1.draw(self.win)
-                # v2.draw(self.win)
-                # v3.draw(self.win)
-                # v4.draw(self.win)
-                # v5.draw(self.win)
-                # v6.draw(self.win)
-                # v7.draw(self.win)
-                # h1.draw(self.win)
-                # h2.draw(self.win)
-                # h3.draw(self.win)
-                # h4.draw(self.win)
-                # h5.draw(self.win)
 
             self.position = self.get_current_position()
             print("CORDS:", self.xm,self.ym)
             print(self.check_current_position())
             self.draw_current_spot()
-            #self.draw_message()
+            self.draw_message()
 
         # Name: init_global_variablesx( %%Hier alle localen Variablen die in Globale umgewandelt werden sollen)
         # Funktion: Initiert alle Variablen die von allen Funtkionen innerhalb der Klasse genutz werden sollen.
@@ -285,27 +268,25 @@ class window:
                 execute_string = "self.pint"+str(i)+".setFill(\"white\")"
                 exec(execute_string)
 
-        print("Done")
         self.generate_vars = False
 
-    #def draw_message(self):
-        #if message != "" :
-        #    message.undraw(self.win)
-    #    msg1="Außerhalb des Breiches."
-    #    msg2=str(self.position)+" ist die aktuelle start Position."
-    #    msg3="Der gewünschte Platz ist bereits die aktuelle Position."+str(self.old_position)
-    #    msg4=str(self.old_position)+"ist die aktuelle Position."
-    #    msg5=str(self.position)+"wurde gedückt."
-    #    print(self.check_current_position())
-    #    if self.check_current_position() == 1 :
-    #        message = Text(Point(self.screen_x/100*90,60), msg1)
-    #    elif self.check_current_position() == 2 :
-    #        message = Text(Point(self.screen_x/100*90,60), msg2)
-    #    elif self.check_current_position() == 3 :
-    #        message = Text(Point(self.screen_x/100*90,60), msg3)
-    #    elif self.check_current_position() == 4 :
-    #        message = Text(Point(self.screen_x/100*90,60), msg4 + msg5)
-    #    message.draw(self.win)
+    def draw_message(self):
+       #message.undraw(self.win)
+       msg1="Außerhalb des Breiches."
+       msg2=str(self.position)+" ist die aktuelle start Position."
+       msg3="Der gewünschte Platz ist bereits die aktuelle Position."+str(self.old_position)
+       msg4=str(self.old_position)+"ist die aktuelle Position."
+       msg5=str(self.position)+"wurde gedückt."
+       print(self.check_current_position())
+       if self.check_current_position() == 1 :
+           message = Text(Point(self.screen_x/100*90,100), msg1)
+       elif self.check_current_position() == 2 :
+           message = Text(Point(self.screen_x/100*90,100), msg2)
+       elif self.check_current_position() == 3 :
+           message = Text(Point(self.screen_x/100*90,100), msg3)
+       elif self.check_current_position() == 4 :
+           message = Text(Point(self.screen_x/100*90,100), msg4 + msg5)
+       message.draw(self.win)
 
 
 # Name: read_resolution ( int:STANDART_X_POS , int:STANDART_Y_POS, str: POS x/y/xy, log)
@@ -350,8 +331,8 @@ def read_resolution(default_x, default_y, pos, log):
 
 
 def main():
-    screen_x = int(int(read_resolution(default_x, default_y, "x", log))/100*90)
-    screen_y = int(int(read_resolution(default_x, default_y, "y", log))/100*90)
+    screen_x = int(int(read_resolution(default_x, default_y, "x", log))/100*50)
+    screen_y = int(int(read_resolution(default_x, default_y, "y", log))/100*50)
     win = GraphWin(programm_name, screen_x, screen_y)
     main_window = window(win,screen_x,screen_y, log)
 
