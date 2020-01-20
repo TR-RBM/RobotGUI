@@ -64,7 +64,7 @@ class window:
                 self.h2y = int(_screen_y/5*2)
                 self.h3y = int(_screen_y/5*3)
                 self.h4y = int(_screen_y/5*4)
-                self.h5y = int(_screen_y)
+                self.h5y = int(_screen_y/5*5)
 
                 v1 = Line(Point(self.v1x, vobabst), Point(self.v1x, vlnu))
                 v2 = Line(Point(self.v2x, vobabst), Point(self.v2x, vlnu))
