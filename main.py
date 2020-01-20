@@ -21,7 +21,8 @@ log = True
 class window:
     def __init__(self, win, screen_x, screen_y, log):
         self.init_global_variablesx(screen_x, screen_y, win, log)
-        print(win, screen_x, screen_y)
+        if self.log == True:
+            print("__init__:                    "+str(win))
         while True:
 
             # Set background and draw grid
@@ -90,7 +91,9 @@ class window:
                 self.draw_current_spot()
 
             elif self.current_position == 3: # Wenn User macht ein Klick ein anderes Feld was nicht das gleiche ist wie zuvor.
-
+                self.goal = self.current_position
+                self.KI_path_finder()
+            elif self.current_position == 4:
                 self.draw_current_spot()
 
 
@@ -134,7 +137,7 @@ class window:
             _init_vars_time_end = time.time() #* 1000.0
             print(_init_vars_time_start, "\n", _init_vars_time_end)
             _init_vars_time = _init_vars_time_end - _init_vars_time_start
-            print("init_global_variablesx:  Job done in", _init_vars_time, "ms")
+            print("init_global_variablesx:      Job done in", _init_vars_time, "ms")
             del _init_vars_time, _init_vars_time_end, _init_vars_time_start
 
     # name: get_current_position( float: self.xm , float: self.ym)
@@ -223,15 +226,28 @@ class window:
     # Funktion: Gibt zurück ob das gleiche Feld wie vorher gedrückt wurde oder ob ein anderes feld gedrückt wurde.
     def check_current_position(self):
         if self.position == "0":
+            if self.log == True:
+                print("check_current_position:      1 - Klick ist außerhalb des Bereiches.")
             return 1 # Wenn außerhalb des Bereiches.
         elif self.old_position == "":
             self.old_position = self.position
+            if self.log == True:
+                print("check_current_position:      2 - Erster klick in einem Feld wurde erkannt.")
             return 2 # Wenn erster klick in ein bereich
         elif self.position == self.old_position :
+            if self.log == True:
+                print("check_current_position:      3 - Das gleiche Feld wurde gedrückt.")
             return 3 # Wenn klick auf das gleiche feld wie vorher
         elif self.position != self.old_position :
             self.old_position = self.position
+            if self.log == True:
+                print("check_current_position:      4 - Es wurde auf ein neues Feld gedrückt.")
             return 4 # Wenn klick auf ein neues Feld.
+
+    def KI_path_finder(self):
+        if self.current_position == self.goal:
+            if self.log == True:
+                print("KI_path_finder:              Ziel ist gelich wie aktuelle Position")
 
     def draw_current_spot(self):
         for i in self.spots:
@@ -306,14 +322,13 @@ class window:
                 execute_string = "self.pint"+str(i)+".draw(self.win)"
                 exec(execute_string)
             if self.position == i:
+                if self.log == True:
+                    print("draw_current_spot:           "+str(i)+" wurde ROT makiert")
                 execute_string = "self.pint"+str(i)+".setFill(\"red\")"
                 exec(execute_string)
             else:
                 execute_string = "self.pint"+str(i)+".setFill(\"white\")"
                 exec(execute_string)
-
-        if self.log == True:
-            print("draw_current_spot:           Done.")
         self.generate_vars = False
 
     #def draw_message(self):
