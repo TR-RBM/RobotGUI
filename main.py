@@ -294,7 +294,6 @@ class window:
                 execute_string = "self.pint"+str(i)+".setFill(\"white\")"
                 exec(execute_string)
 
-        print("Done")
         self.generate_vars = False
 
 
