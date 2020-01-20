@@ -101,7 +101,7 @@ class window:
         # Funktion: Initiert alle Variablen die von allen Funtkionen innerhalb der Klasse genutz werden sollen.
     def init_global_variablesx(self, screen_x, screen_y, win, log):
         if log == True:
-            _init_vars_time_start = time.time() * 1000.0
+            _init_vars_time_start = time.time() #* 1000.0
         self.screen_x = screen_x
         self.screen_y = screen_y
         self.win = win
@@ -131,7 +131,8 @@ class window:
                 execute_string = "self."+i+" =\"7"+i[1]+"\""
             exec(execute_string)
         if self.log == True:
-            _init_vars_time_end = time.time() * 1000.0
+            _init_vars_time_end = time.time() #* 1000.0
+            print(_init_vars_time_start, "\n", _init_vars_time_end)
             _init_vars_time = _init_vars_time_end - _init_vars_time_start
             print("init_global_variablesx:  Job done in", _init_vars_time, "ms")
             del _init_vars_time, _init_vars_time_end, _init_vars_time_start
