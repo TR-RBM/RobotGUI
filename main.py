@@ -94,7 +94,8 @@ class window:
                 self.goal = self.current_position
                 self.KI_path_finder()
             elif self.current_position == 4:
-                self.draw_current_spot()
+                self.goal = self.position
+                self.KI_path_finder()
 
 
 
@@ -116,6 +117,7 @@ class window:
         self.current_position = ""
         self.first_klick = True
         self.generate_vars = True
+        self.spots_char = ["A","B","C","D","E","F","G"]
         self.spots=["A1" ,"A2" , "A3", "A4", "A5","B1", "B2", "B3", "B4", "B5","C1", "C2", "C3", "C4", "C5","D1", "D2", "D3", "D4", "D5","E1" ,"E2" ,"E3" ,"E4" ,"E5","F1", "F2", "F3", "F4" ,"F5" ,"G1" ,"G2" ,"G3" , "G4", "G5"]
         for i in self.spots:
             if i[0] == "A":
@@ -248,6 +250,19 @@ class window:
         if self.current_position == self.goal:
             if self.log == True:
                 print("KI_path_finder:              Ziel ist gelich wie aktuelle Position")
+        else:
+            KI_START_PATH_FINDER = True:
+            while KI_START_PATH_FINDER == True:
+                for i in self.spots_char:
+                    if self.current_position[0] == i:
+                        if int(self.current_position[1]) > int(self.goal[1]):
+                            self.next_step = int(-1)
+                        elif int(self.current_position[1]) < int(self.goal[1]):
+                            self.next_step = int(1)
+                        elif int(self.current_position[1]) == int(self.goal[1]):
+                            self.netx_step = int(0)
+                        
+
 
     def draw_current_spot(self):
         for i in self.spots:
