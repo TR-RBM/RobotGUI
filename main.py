@@ -1,12 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# RobotGUI
-# von Tim Richter
-
-# Todo: Lite 100 -> init cords
-
-
 # Bibliotheken Importieren ##
 from graphics import *
 import subprocess as sp
@@ -26,14 +20,8 @@ log = False
 
 class window:
     def __init__(self, win, screen_x, screen_y, log):
+        self.init_global_variablesx(screen_x, screen_y, win, log)
         print(win, screen_x, screen_y)
-        self.screen_x = screen_x
-        self.screen_y = screen_y
-        self.win = win
-        self.first_run = True
-        self.old_position = ""
-        self.first_klick = True
-        self.generate_vars = True
         while True:
 
             # Set background and draw grid
@@ -65,7 +53,7 @@ class window:
                 self.h2y = int(_screen_y/5*2)
                 self.h3y = int(_screen_y/5*3)
                 self.h4y = int(_screen_y/5*4)
-                self.h5y = int(_screen_y)
+                self.h5y = int(_screen_y/5*5)
 
                 self.v = [self.v1x, self.v2x, self.v3x, self.v4x, self.v5x, self.v6x, self.v7x]
                 self.h = ["h1y", "h2y", "h3y", "h4y", "h5y"]
@@ -104,133 +92,124 @@ class window:
                 # h4.draw(self.win)
                 # h5.draw(self.win)
 
-                #message = Text(Point(screen_x/100*90,60), "Bitte wähle einen positionpunkt\n indem du mit der Maus auf ein Feld drückst.")
-                #message.draw(self.win)
-
-
-            self.position = self.get_current_position(log)
+            self.position = self.get_current_position()
             print("CORDS:", self.xm,self.ym)
-            self.check_current_position()
+            print(self.check_current_position())
             self.draw_current_spot()
             #self.draw_message()
-            print(self.check_current_position())
 
+        # Name: init_global_variablesx( %%Hier alle localen Variablen die in Globale umgewandelt werden sollen)
+        # Funktion: Initiert alle Variablen die von allen Funtkionen innerhalb der Klasse genutz werden sollen.
+    def init_global_variablesx(self, screen_x, screen_y, win, log):
+        self.screen_x = screen_x
+        self.screen_y = screen_y
+        self.win = win
+        self.log = log
+        self.first_run = True
+        self.position = ""
+        self.old_position = ""
+        self.first_klick = True
+        self.generate_vars = True
+        self.spots=["A1" ,"A2" , "A3", "A4", "A5","B1", "B2", "B3", "B4", "B5","C1", "C2", "C3", "C4", "C5","D1", "D2", "D3", "D4", "D5","E1" ,"E2" ,"E3" ,"E4" ,"E5","F1", "F2", "F3", "F4" ,"F5" ,"G1" ,"G2" ,"G3" , "G4", "G5"]
 
-
-    # name: get_current_position( float: XM , float: ym, bool: log)
+    # name: get_current_position( float: self.xm , float: self.ym)
     # Funktion: liest Mausklick und gibt zurück in welches feld geklickt wurde.
-    def get_current_position(self, log):
+    def get_current_position(self):
                     position = self.win.getMouse()
                     self.xm = position.getX()
                     self.ym = position.getY()
-                    xm = self.xm
-                    ym = self.ym
-                    if xm > self.v7x or ym > self.h5y :
+                    if self.xm > self.v7x or self.ym > self.h5y :
                         _out ="0"
-                    if self.v1x >= xm >= 0 and  self.h1y >= ym >= 0:
+                    elif self.v1x >= self.xm >= 0 and  self.h1y >= self.ym >= 0:
                         _out = "A1"
-                    if self.v1x >= xm >= 0 and self.h2y >= ym >= self.h1y:
+                    elif self.v1x >= self.xm >= 0 and self.h2y >= self.ym >= self.h1y:
                         _out = "A2"
-                    if self.v1x >= xm >= 0 and self.h3y >= ym >= self.h2y:
+                    elif self.v1x >= self.xm >= 0 and self.h3y >= self.ym >= self.h2y:
                         _out = "A3"
-                    if self.v1x >= xm >= 0 and self.h4y >= ym >= self.h3y:
+                    elif self.v1x >= self.xm >= 0 and self.h4y >= self.ym >= self.h3y:
                         _out = "A4"
-                    if self.v1x >= xm >= 0 and self.h5y >= ym >= self.h4y:
+                    elif self.v1x >= self.xm >= 0 and self.h5y >= self.ym >= self.h4y:
                         _out = "A5"
-                    if self.v2x >= xm >= self.v1x and self.h1y >= ym >= 0:
+                    elif self.v2x >= self.xm >= self.v1x and self.h1y >= self.ym >= 0:
                         _out = "B1"
-                    if self.v2x >= xm >= self.v1x and self.h2y >= ym >= self.h1y:
+                    elif self.v2x >= self.xm >= self.v1x and self.h2y >= self.ym >= self.h1y:
                         _out = "B2"
-                    if self.v2x >= xm >= self.v1x and self.h3y >= ym >= self.h2y:
+                    elif self.v2x >= self.xm >= self.v1x and self.h3y >= self.ym >= self.h2y:
                         _out = "B3"
-                    if self.v2x >= xm >= self.v1x and self.h4y >= ym >= self.h3y:
+                    elif self.v2x >= self.xm >= self.v1x and self.h4y >= self.ym >= self.h3y:
                         _out = "B4"
-                    if self.v2x >= xm >= self.v1x and self.h5y >= ym >= self.h4y:
+                    elif self.v2x >= self.xm >= self.v1x and self.h5y >= self.ym >= self.h4y:
                         _out = "B5"
-                    if self.v3x >= xm >= self.v2x and self.h1y >= ym >= 0:
+                    elif self.v3x >= self.xm >= self.v2x and self.h1y >= self.ym >= 0:
                         _out = "C1"
-                    if self.v3x >= xm >= self.v2x and self.h2y >= ym >= self.h1y:
+                    elif self.v3x >= self.xm >= self.v2x and self.h2y >= self.ym >= self.h1y:
                         _out = "C2"
-                    if self.v3x >= xm >= self.v2x and self.h3y >= ym >= self.h2y:
+                    elif self.v3x >= self.xm >= self.v2x and self.h3y >= self.ym >= self.h2y:
                         _out = "C3"
-                    if self.v3x >= xm >= self.v2x and self.h4y >= ym >= self.h3y:
+                    elif self.v3x >= self.xm >= self.v2x and self.h4y >= self.ym >= self.h3y:
                         _out = "C4"
-                    if self.v3x >= xm >= self.v2x and self.h5y >= ym >= self.h4y:
+                    elif self.v3x >= self.xm >= self.v2x and self.h5y >= self.ym >= self.h4y:
                         _out = "C5"
-                    if self.v4x >= xm >= self.v3x and self.h1y >= ym >= 0:
+                    elif self.v4x >= self.xm >= self.v3x and self.h1y >= self.ym >= 0:
                         _out = "D1"
-                    if self.v4x >= xm >= self.v3x and self.h2y >= ym >= self.h1y:
+                    elif self.v4x >= self.xm >= self.v3x and self.h2y >= self.ym >= self.h1y:
                         _out = "D2"
-                    if self.v4x >= xm >= self.v3x and self.h3y >= ym >= self.h2y:
+                    elif self.v4x >= self.xm >= self.v3x and self.h3y >= self.ym >= self.h2y:
                         _out = "D3"
-                    if self.v4x >= xm >= self.v3x and self.h4y >= ym >= self.h3y:
+                    elif self.v4x >= self.xm >= self.v3x and self.h4y >= self.ym >= self.h3y:
                         _out = "D4"
-                    if self.v4x >= xm >= self.v3x and self.h5y >= ym >= self.h4y:
+                    elif self.v4x >= self.xm >= self.v3x and self.h5y >= self.ym >= self.h4y:
                         _out = "D5"
-                    if self.v5x >= xm >= self.v4x and self.h1y >= ym >= 0:
+                    elif self.v5x >= self.xm >= self.v4x and self.h1y >= self.ym >= 0:
                         _out = "E1"
-                    if self.v5x >= xm >= self.v4x and self.h2y >= ym >= self.h1y:
+                    elif self.v5x >= self.xm >= self.v4x and self.h2y >= self.ym >= self.h1y:
                         _out = "E2"
-                    if self.v5x >= xm >= self.v4x and self.h3y >= ym >= self.h2y:
+                    elif self.v5x >= self.xm >= self.v4x and self.h3y >= self.ym >= self.h2y:
                         _out = "E3"
-                    if self.v5x >= xm >= self.v4x and self.h4y >= ym >= self.h3y:
+                    elif self.v5x >= self.xm >= self.v4x and self.h4y >= self.ym >= self.h3y:
                         _out = "E4"
-                    if self.v5x >= xm >= self.v4x and self.h5y >= ym >= self.h4y:
+                    elif self.v5x >= self.xm >= self.v4x and self.h5y >= self.ym >= self.h4y:
                         _out = "E5"
-                    if self.v6x >= xm >= self.v5x and self.h1y >= ym >= 0:
+                    elif self.v6x >= self.xm >= self.v5x and self.h1y >= self.ym >= 0:
                         _out = "F1"
-                    if self.v6x >= xm >= self.v5x and self.h2y >= ym >= self.h1y:
+                    elif self.v6x >= self.xm >= self.v5x and self.h2y >= self.ym >= self.h1y:
                         _out = "F2"
-                    if self.v6x >= xm >= self.v5x and self.h3y >= ym >= self.h2y:
+                    elif self.v6x >= self.xm >= self.v5x and self.h3y >= self.ym >= self.h2y:
                         _out = "F3"
-                    if self.v6x >= xm >= self.v5x and self.h4y >= ym >= self.h3y:
+                    elif self.v6x >= self.xm >= self.v5x and self.h4y >= self.ym >= self.h3y:
                         _out = "F4"
-                    if self.v6x >= xm >= self.v5x and self.h5y >= ym >= self.h4y:
+                    elif self.v6x >= self.xm >= self.v5x and self.h5y >= self.ym >= self.h4y:
                         _out = "F5"
-                    if self.v7x >= xm >= self.v6x and self.h1y >= ym >= 0:
+                    elif self.v7x >= self.xm >= self.v6x and self.h1y >= self.ym >= 0:
                         _out = "G1"
-                    if self.v7x >= xm >= self.v6x and self.h2y >= ym >= self.h1y:
+                    elif self.v7x >= self.xm >= self.v6x and self.h2y >= self.ym >= self.h1y:
                         _out = "G2"
-                    if self.v7x >= xm >= self.v6x and self.h3y >= ym >= self.h2y:
+                    elif self.v7x >= self.xm >= self.v6x and self.h3y >= self.ym >= self.h2y:
                         _out = "G3"
-                    if self.v7x >= xm >= self.v6x and self.h4y >= ym >= self.h3y:
+                    elif self.v7x >= self.xm >= self.v6x and self.h4y >= self.ym >= self.h3y:
                         _out = "G4"
-                    if self.v7x >= xm >= self.v6x and self.h5y >= ym >= self.h4y:
+                    elif self.v7x >= self.xm >= self.v6x and self.h5y >= self.ym >= self.h4y:
                         _out = "G5"
-
-                    # Gib aus was gedückt wurde wenn log = True
-                    if log == True:
+                    if self.log == True:
                         print("Es wurde:", _out , "gedrückt")
                     return _out
-    # name: check_current_position()
-    # Funktion: Überprüfe ob ein Bereich mehrfach gedrückt wurde
-    def check_current_position(self):
-        position = self.position
-        if position == "0" :
-            print("TEST")
-            return 1
-        elif self.old_position == "" and position != self.old_position :
-            print("TEST")
-            self.old_position = position
-            return 2
-        elif position == self.old_position :
-            print("TEST")
-            return 3
-        elif position != self.old_position :
-            self.old_position = position
-            print("TEST")
-            return 4
 
+    # name: check_current_position()
+    # Funktion: Gibt zurück ob das gleiche Feld wie vorher gedrückt wurde oder ob ein anderes feld gedrückt wurde.
+    def check_current_position(self):
+        if self.position == "0":
+            return 1 # Wenn außerhalb des Bereiches.
+        elif self.old_position == "":
+            self.old_position = self.position
+            return 2 # Wenn erster klick in ein bereich
+        elif self.position == self.old_position :
+            return 3 # Wenn klick auf das gleiche feld wie vorher
+        elif self.position != self.old_position :
+            self.old_position = self.position
+            return 4 # Wenn klick auf ein neues Feld.
 
     def draw_current_spot(self):
-        spots=["A1" ,"A2" , "A3", "A4", "A5",
-                "B1", "B2", "B3", "B4", "B5",
-                "C1", "C2", "C3", "C4", "C5",
-                "D1", "D2", "D3", "D4", "D5",
-                "E1" ,"E2" ,"E3" ,"E4" ,"E5",
-                "F1", "F2", "F3", "F4" ,"F5" ,
-                "G1" ,"G2" ,"G3" , "G4", "G5"]
-        for i in spots:
+        for i in self.spots:
             if i[0] == "A":
                 X1 = "0"
                 X2 = "self.v1x"
