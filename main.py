@@ -251,7 +251,7 @@ class window:
             if self.log == True:
                 print("KI_path_finder:              Ziel ist gelich wie aktuelle Position")
         else:
-            KI_START_PATH_FINDER = True:
+            KI_START_PATH_FINDER = True
             while KI_START_PATH_FINDER == True:
                 for i in self.spots_char:
                     if self.current_position[0] == i:
@@ -261,7 +261,7 @@ class window:
                             self.next_step = int(1)
                         elif int(self.current_position[1]) == int(self.goal[1]):
                             self.netx_step = int(0)
-                        
+
 
 
     def draw_current_spot(self):
