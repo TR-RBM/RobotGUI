@@ -36,6 +36,7 @@ class window:
         while True:
 
             # Set background and draw grid
+            # Set background and draw grid
             if self.first_run == True:
                 self.win.setBackground("white")
                 # v =vertikal / h = horizontal
@@ -44,14 +45,19 @@ class window:
                 _laenge_nach_unten = 80
                 _linker_abstand = 0
                 _laenge_nach_rechts = 80
-
                 _screen_x = (screen_x/100*80)
                 _screen_y = (screen_y/100*80)
 
                 vobabst = int(_screen_y/100*_oberer_abstand)    # Vertikaler oberer abstand
                 vlnu   = int(screen_y/100*_laenge_nach_unten)   # Vertikale länge nach unten
                 hliabst = int(_screen_x/100*_linker_abstand)    # horizontaler linker abstand
-
+                obere_linie = Line(Point(0,1), Point(_screen_x, 1))
+                linke_linie = Line(Point(1,0), Point(1, _screen_y))
+                obere_linie.setWidth(2)
+                linke_linie.setWidth(2)
+                obere_linie.draw(self.win)
+                linke_linie.draw(self.win)
+                #self.v0x = int(_screen_x, 1)
                 self.v1x = int(_screen_x/7*1)
                 self.v2x = int(_screen_x/7*2)
                 self.v3x = int(_screen_x/7*3)
@@ -60,38 +66,30 @@ class window:
                 self.v6x = int(_screen_x/7*6)
                 self.v7x = int(_screen_x/7*7)
 
+
+
                 self.h1y = int(_screen_y/5*1)
                 self.h2y = int(_screen_y/5*2)
                 self.h3y = int(_screen_y/5*3)
                 self.h4y = int(_screen_y/5*4)
                 self.h5y = int(_screen_y/5*5)
 
-                v1 = Line(Point(self.v1x, vobabst), Point(self.v1x, vlnu))
-                v2 = Line(Point(self.v2x, vobabst), Point(self.v2x, vlnu))
-                v3 = Line(Point(self.v3x, vobabst), Point(self.v3x, vlnu))
-                v4 = Line(Point(self.v4x, vobabst), Point(self.v4x, vlnu))
-                v5 = Line(Point(self.v5x, vobabst), Point(self.v5x, vlnu))
-                v6 = Line(Point(self.v6x, vobabst), Point(self.v6x, vlnu))
-                v7 = Line(Point(self.v7x, vobabst), Point(self.v7x, vlnu))
+                self.v = [self.v1x, self.v2x, self.v3x, self.v4x, self.v5x, self.v6x, self.v7x]
+                self.h = [self.h1y, self.h2y, self.h3y, self.h4y, self.h5y]
+                for i in self.v :
+                    vx = Line(Point(i, vobabst), Point(i, vlnu))
+                    vx.setWidth(2)
+                    vx.draw(self.win)
+                for i in self.h :
+                    hy = Line(Point(hliabst, i), Point(_screen_x, i))
+                    hy.setWidth(2)
+                    hy.draw(self.win)
 
-                h1 = Line(Point(hliabst, self.h1y), Point(_screen_x, self.h1y))
-                h2 = Line(Point(hliabst, self.h2y), Point(_screen_x, self.h2y))
-                h3 = Line(Point(hliabst, self.h3y), Point(_screen_x, self.h3y))
-                h4 = Line(Point(hliabst, self.h4y), Point(_screen_x, self.h4y))
-                h5 = Line(Point(hliabst, self.h5y), Point(_screen_x, self.h5y))
-
-                v1.draw(self.win)
-                v2.draw(self.win)
-                v3.draw(self.win)
-                v4.draw(self.win)
-                v5.draw(self.win)
-                v6.draw(self.win)
-                v7.draw(self.win)
-                h1.draw(self.win)
-                h2.draw(self.win)
-                h3.draw(self.win)
-                h4.draw(self.win)
-                h5.draw(self.win)
+            self.position = self.get_current_position()
+            print("CORDS:", self.xm,self.ym)
+            print(self.check_current_position())
+            self.draw_current_spot()
+            self.draw_message()
 
                 message = Text(Point(screen_x/100*88,50), "Bitte wähle einen positionpunkt\n indem du mit der Maus auf ein Feld drückst.")
                 message.draw(self.win)
