@@ -56,15 +56,13 @@ class window:
                 self.h5y = int(_screen_y/5*5)
 
                 self.v = [self.v1x, self.v2x, self.v3x, self.v4x, self.v5x, self.v6x, self.v7x]
-                self.h = ["h1y", "h2y", "h3y", "h4y", "h5y"]
+                self.h = [self.h1y, self.h2y, self.h3y, self.h4y, self.h5y]
                 for i in self.v :
-                    print(i)
-                    #i = self.i
-                    vx = Line(Point(self.v, vobabst), Point(self.v, vlnu))
+                    vx = Line(Point(i, vobabst), Point(i, vlnu))
                     vx.draw(self.win)
-                # for i in h :
-                #     hy = Line(Point(hliabst, self.h), Point(_screen_x, self.h))
-                #     hy.draw(self.win)
+                for i in self.h :
+                    hy = Line(Point(hliabst, i), Point(_screen_x, i))
+                    hy.draw(self.win)
                 # v1 = Line(Point(self.v1x, vobabst), Point(self.v1x, vlnu))
                 # v2 = Line(Point(self.v2x, vobabst), Point(self.v2x, vlnu))
                 # v3 = Line(Point(self.v3x, vobabst), Point(self.v3x, vlnu))
@@ -78,7 +76,7 @@ class window:
                 # h3 = Line(Point(hliabst, self.h3y), Point(_screen_x, self.h3y))
                 # h4 = Line(Point(hliabst, self.h4y), Point(_screen_x, self.h4y))
                 # h5 = Line(Point(hliabst, self.h5y), Point(_screen_x, self.h5y))
-
+                #
                 # v1.draw(self.win)
                 # v2.draw(self.win)
                 # v3.draw(self.win)
