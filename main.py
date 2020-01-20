@@ -15,7 +15,7 @@ default_x = 480
 default_y = 320
 # Programm name
 programm_name = "RobotGUI"
-log = False
+log = True
 ###############
 
 class window:
@@ -83,14 +83,14 @@ class window:
                 h5.draw(self.win)
 
             self.position = self.get_current_position()
-            _current_position = self.check_current_position()
+            self.current_position = self.check_current_position()
 
-            if _current_position == 2: # Wenn User macht den Ersten klick in ein Feld
+            if self.current_position == 2: # Wenn User macht den Ersten klick in ein Feld.
                 self.first_position = self.position
                 self.draw_current_spot()
 
-            elif _current_position == 3: # Wenn User macht ein Klick ein anderes Feld
-                if 
+            elif self.current_position == 3: # Wenn User macht ein Klick ein anderes Feld was nicht das gleiche ist wie zuvor.
+
                 self.draw_current_spot()
 
 
@@ -100,6 +100,8 @@ class window:
         # Name: init_global_variablesx( %%Hier alle localen Variablen die in Globale umgewandelt werden sollen)
         # Funktion: Initiert alle Variablen die von allen Funtkionen innerhalb der Klasse genutz werden sollen.
     def init_global_variablesx(self, screen_x, screen_y, win, log):
+        if log == True:
+            _init_vars_time_start = time.time() * 1000.0
         self.screen_x = screen_x
         self.screen_y = screen_y
         self.win = win
@@ -108,9 +110,31 @@ class window:
         self.position = ""
         self.old_position = ""
         self.first_position = ""
+        self.current_position = ""
         self.first_klick = True
         self.generate_vars = True
         self.spots=["A1" ,"A2" , "A3", "A4", "A5","B1", "B2", "B3", "B4", "B5","C1", "C2", "C3", "C4", "C5","D1", "D2", "D3", "D4", "D5","E1" ,"E2" ,"E3" ,"E4" ,"E5","F1", "F2", "F3", "F4" ,"F5" ,"G1" ,"G2" ,"G3" , "G4", "G5"]
+        for i in self.spots:
+            if i[0] == "A":
+                execute_string = "self."+i+" =\"1"+i[1]+"\""
+            if i[0] == "B":
+                execute_string = "self."+i+" =\"2"+i[1]+"\""
+            if i[0] == "C":
+                execute_string = "self."+i+" =\"3"+i[1]+"\""
+            if i[0] == "D":
+                execute_string = "self."+i+" =\"4"+i[1]+"\""
+            if i[0] == "E":
+                execute_string = "self."+i+" =\"5"+i[1]+"\""
+            if i[0] == "F":
+                execute_string = "self."+i+" =\"6"+i[1]+"\""
+            if i[0] == "G":
+                execute_string = "self."+i+" =\"7"+i[1]+"\""
+            exec(execute_string)
+        if self.log == True:
+            _init_vars_time_end = time.time() * 1000.0
+            _init_vars_time = _init_vars_time_end - _init_vars_time_start
+            print("init_global_variablesx:  Job done in", _init_vars_time, "ms")
+            del _init_vars_time, _init_vars_time_end, _init_vars_time_start
 
     # name: get_current_position( float: self.xm , float: self.ym)
     # Funktion: liest Mausklick und gibt zurück in welches feld geklickt wurde.
@@ -191,7 +215,7 @@ class window:
                     elif self.v7x >= self.xm >= self.v6x and self.h5y >= self.ym >= self.h4y:
                         _out = "G5"
                     if self.log == True:
-                        print("Es wurde:", _out , "gedrückt")
+                        print("get_current_position:        Es wurde:", _out , "gedrückt")
                     return _out
 
     # name: check_current_position()
@@ -287,7 +311,8 @@ class window:
                 execute_string = "self.pint"+str(i)+".setFill(\"white\")"
                 exec(execute_string)
 
-        print("Done")
+        if self.log == True:
+            print("draw_current_spot:           Done.")
         self.generate_vars = False
 
     #def draw_message(self):
@@ -315,7 +340,7 @@ class window:
 def read_resolution(default_x, default_y, pos, log):
     if platform.system() == "Windows":
         if log == True:
-            print("Windows System Detected")
+            print("read_resolution:             Windows System Detected")
         try:
             user32 = ctypes.windll.user32
             screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
@@ -323,10 +348,7 @@ def read_resolution(default_x, default_y, pos, log):
             screen_y = screensize[1]
         except:
             if log == True:
-                print("Error while trying to get screensize")
-        if log == True:
-            print("Detected Monitor:",screen_x,"x",screen_y)
-
+                print("read_resolution:         Error while trying to get screensize")
     else:
         print(platform.system())
         try:
@@ -337,18 +359,22 @@ def read_resolution(default_x, default_y, pos, log):
         except:
             screen_x = default_x
             screen_y = default_y
-            print("Es gab einen Fehler beim Lesen der Bildschirmgröße,\nbitte den Entwickler (Tim Richter) informieren\n\nDie standart Bildschirmgröße wurde auf 480x320 festgelegt,\ndie Größe kann am anfang in dem script geändert werden.")
-            time.sleep(5)
+            print("Es gab einen Fehler beim Lesen der Bildschirmgröße,\nin der Funktion read_resolution().\nEs werden Standard Werte verwendet!")
 
     if pos == "x":
+        if log == True:
+            print("read_resolution:             Detected Monitor X:",screen_x)
         return screen_x
     elif pos == "y":
+        if log == True:
+            print("read_resolution:             Detected Monitor Y:",screen_y)
         return screen_y
     elif pos == "xy":
         return screen_x, screen_y
     else:
-        print("Unknown error while trying to output screen resolution.")
-        time.sleep(5)
+        print("\nEin unbekannter Fehler ist aufgetrerten.\nDer Fehler ist in read_resolution() und trat wärend des versuches auf,\n die Bildschirmgröße zu lesne.\nBitte Melden Sie dies den Entwicklern des Programmes.")
+        time.sleep(10)
+        exit()
 
 
 def main():
