@@ -221,7 +221,7 @@ class window:
                     elif self.v7x >= self.xm >= self.v6x and self.h5y >= self.ym >= self.h4y:
                         _out = "G5"
                     if self.log == True:
-                        print("get_current_position:Es wurde:", _out , "gedrückt")
+                        print("get_current_position:        Es wurde:", _out , "gedrückt")
                     return _out
     # name: check_current_position()
     # Funktion: Überprüfe ob ein Bereich mehrfach gedrückt wurde
