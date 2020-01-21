@@ -22,7 +22,7 @@ class window:
     def __init__(self, win, screen_x, screen_y, log):
         self.init_global_variablesx(screen_x, screen_y, win, log)
         if self.log == True:
-            print("__init__:                "+str(win))
+            print("__init__:                    "+str(win))
         while True:
 
             # Set background and draw grid
@@ -76,21 +76,24 @@ class window:
                     hy = Line(Point(hliabst, i), Point(_screen_x, i))
                     hy.setWidth(2)
                     hy.draw(self.win)
+
+                self.position = self.get_current_position()
+                self.current_position = self.check_current_position()
+                self.draw_current_spot()
                 self.first_run = False
+
+            if self.current_position == 2: # Wenn User macht den Ersten klick in ein Feld.
+                self.first_position = self.position
+                self.draw_current_spot()
+            elif self.current_position == 3: # Wenn User klickt auf das selbe felf
+                print("init:                Das ist das Selbe Feld")
+            elif self.current_position == 4: # Wenn User macht ein Klick ein anderes Feld was nicht das gleiche ist wie zuvor.
+                self.goal = self.position
+                self.KI_path_finder()
+                self.first_position = self.position
 
             self.position = self.get_current_position()
             self.current_position = self.check_current_position()
-            self.draw_current_spot()
-            # if self.current_position == 2: # Wenn User macht den Ersten klick in ein Feld.
-            #     self.first_position = self.position
-            #     self.draw_current_spot()
-
-            # elif self.current_position == 3: # Wenn User macht ein Klick ein anderes Feld was nicht das gleiche ist wie zuvor.
-            #     self.goal = self.current_position
-            #     self.KI_path_finder()
-            # elif self.current_position == 4:
-            #     self.goal = self.position
-            #     self.KI_path_finder()
 
 
 
@@ -112,7 +115,7 @@ class window:
         self.current_position = ""
         self.first_klick = True
         self.generate_vars = True
-        self.spots_char = ["A","B","C","D","E","F","G"]
+        self.spots_char = [["A",1],["B",2],["C",3],["D",4],["E",5],["F",6],["G",7]]
         self.spots=["A1" ,"A2" , "A3", "A4", "A5",
                     "B1", "B2", "B3", "B4", "B5",
                     "C1", "C2", "C3", "C4", "C5",
@@ -138,7 +141,6 @@ class window:
             exec(execute_string)
         if self.log == True:
             _init_vars_time_end = time.time() #* 1000.0
-            print(_init_vars_time_start, "\n", _init_vars_time_end)
             _init_vars_time = _init_vars_time_end - _init_vars_time_start
             print("init_global_variablesx:      Job done in", _init_vars_time, "ms")
             del _init_vars_time, _init_vars_time_end, _init_vars_time_start
@@ -331,25 +333,79 @@ class window:
         self.generate_vars = False
 
     def KI_path_finder(self):
-        if self.current_position == self.goal:
+        _start = self.first_position
+        _ziel = self.goal
+        _next_abc = 0
+        _next_123 = 0
+
+        #Convert char to int:
+        for i in self.spots_char:
+            if str(_start[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
+                _start = str(i[1])+str(_start[1])   # und speichere ihn ab
+            for i in self.spots_char:
+                if str(_ziel[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
+                    _ziel = str(i[1])+str(_ziel[1])   # und speichere ihn ab
+
+        if _start == _ziel:
             if self.log == True:
                 print("KI_path_finder:              Ziel ist gelich wie aktuelle Position")
         else:
             KI_START_PATH_FINDER = True
             while KI_START_PATH_FINDER == True:
+                print("KI_START_PATH_FINDER:        Start:", _start, "Ziel:", _ziel)
+                if int(_start[0]) > int(_ziel[0]): # Wenn buchtsabe als zahl größer ist. verkleinern
+                    _next_abc = -1
+                elif int(_start[0]) < int(_ziel[0]):
+                    _next_abc = 1
+                elif int(_start[0]) == int(_ziel[0]):
+                    if int(_start[1]) > int(_ziel[1]):
+                        _next_123 = -1
+                    elif int(_start[1]) < int(_ziel[1]):
+                        _next_123 = 1
+                    elif int(_start[1]) == int(_ziel[1]):
+                        print("Ziel gefunden")
+
+                if _next_123 == 0 and _next_abc == 0:
+                    break
+                if _next_abc == 1:
+                    _next_abc = 0
+                    if self.log == True:
+                        print("KI_path_finder:              Buchstabe wird vergrößert")
+                    _start = str(int(_start[0])+1)+str(_start[1])
+                elif _next_abc == -1:
+                    _next_abc = 0
+                    if self.log == True:
+                        print("KI_path_finder:              Buchstabe wird verkleinert")
+                    _start = str(int(_start[0])-1)+str(_start[1])
+                elif _next_123 == 1:
+                    _next_123 = 0
+                    if self.log == True:
+                        print("KI_path_finder:              zahl wird vergrößert")
+                    _start = str(_start[0])+str(int(_start[1])+1)
+                elif _next_123 == -1:
+                    if self.log == True:
+                        print("KI_path_finder:              zahl wird verkleinert")
+                    _next_123 = 0
+                    _start = str(_start[0])+str(int(_start[1])-1)
+
                 for i in self.spots_char:
-                    if self.position[0] == i: # Wenn Buchstabe ist gleich: geh zum Ziel hoch oder runter.
-                        print("pos:", self.position, "goal:",self.goal)
-                        if int(self.position[1]) > int(self.goal[1]):
-                            self.next_step = int(-1)
-                            if self.log == True:
-                                print("KI_path_finder:          POS",self.position,"go -1h")
-                        elif int(self.position[1]) < int(self.goal[1]):
-                            self.next_step = int(1)
-                            if self.log == True:
-                                print("KI_path_finder:          POS",self.position,"go +1h")
-                        elif int(self.position[1]) == int(self.goal[1]):
-                            self.netx_step = int(0)
+                    if str(_start[0]) == str(i[1]):         # Wenn Zahl in Liste ist, convertiere ihn zu dem passenden Buchstabe.
+                        self.position = str(i[0])+str(_start[1])   # und speichere ihn ab
+                        self.draw_current_spot()
+
+
+                    # if self.position[0] == i: # Wenn Buchstabe ist gleich: geh zum Ziel hoch oder runter.
+                    #     print("pos:", self.position, "goal:",self.goal)
+                    #     if int(self.position[1]) > int(self.goal[1]):
+                    #         self.next_step = int(-1)
+                    #         if self.log == True:
+                    #             print("KI_path_finder:          POS",self.position,"go -1h")
+                    #     elif int(self.position[1]) < int(self.goal[1]):
+                    #         self.next_step = int(1)
+                    #         if self.log == True:
+                    #             print("KI_path_finder:          POS",self.position,"go +1h")
+                    #     elif int(self.position[1]) == int(self.goal[1]):
+                    #         self.netx_step = int(0)
 
 # Name: read_resolution ( int:STANDART_X_POS , int:STANDART_Y_POS, str: POS x/y/xy, log)
 # Nutzen: Liest die Bildschirmgröße
