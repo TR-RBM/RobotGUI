@@ -77,15 +77,10 @@ class window:
                     hy.setWidth(2)
                     hy.draw(self.win)
                 self.first_run = False
-
             self.KI_path_finder()
 
-
-
-
-
-
-
+    # Name: init_global_variablesx
+    # Funktion: Hier werden alle "globales Variabeln definiert"
     def init_global_variablesx(self, screen_x, screen_y, win, log):
         if log == True:
             _init_vars_time_start = time.time() #* 1000.0
@@ -129,6 +124,7 @@ class window:
             _init_vars_time = _init_vars_time_end - _init_vars_time_start
             print("init_global_variablesx:      Job done in", _init_vars_time, "ms")
             del _init_vars_time, _init_vars_time_end, _init_vars_time_start
+
     # name: get_current_position( float: XM , float: ym, bool: log)
     # Funktion: liest Mausklick und gibt zurück in welches feld geklickt wurde.
     def get_current_position(self):
@@ -210,6 +206,7 @@ class window:
                     if self.log == True:
                         print("get_current_position:        Es wurde:", _out , "gedrückt")
                     return _out
+
     # name: check_current_position()
     # Funktion: Überprüfe ob ein Bereich mehrfach gedrückt wurde
     def check_current_position(self):
@@ -309,8 +306,8 @@ class window:
                 execute_string = "self.pint"+str(i)+".draw(self.win)"
                 exec(execute_string)
             if self.position == i:
-                if self.log == True:
-                    print("draw_current_spot:           "+str(i)+" wurde ROT makiert")
+                # if self.log == True:
+                #     print("draw_current_spot:           "+str(i)+" wurde ROT makiert")
                 execute_string = "self.pint"+str(i)+".setFill(\"red\")"
                 exec(execute_string)
             else:
@@ -321,7 +318,7 @@ class window:
     # Name: KI_PATH_FINDER
     # Funktion: Nach dem eine Startposition und ein Ziel gesetzt wurde, geht die KI zu dem gewählten Ort.
     def KI_path_finder(self):
-        if self.first_position == "":
+        if self.first_position == "": # Wenn noch kein Feld gedrückt wurde:
             if self.log == True:
                 print("KI_path_finder:              Bitte ersten Start wählen.")
             self.first_position = self.get_current_position()
@@ -331,15 +328,12 @@ class window:
                 print("KI_path_finder:              Bitte Ziel wählen.")
             self.goal = self.get_current_position()
             _start = self.first_position
-            if self.log == True:
-                print("KI_path_finder:              Start=",self.first_position, " Ziel=",self.goal)
-        else:
+        else: # Wenn schon mal ein Feld gedrückt wurde
             if self.log == True:
                 print("KI_path_finder:              Bitte Ziel wählen.")
+            self.first_position = self.goal
             self.goal = self.get_current_position()
-            _start = self.position
-            if self.log == True:
-                print("KI_path_finder:              Start=",self.first_position, " Ziel=",self.goal)
+
         _start = self.first_position
         _ziel = self.goal
         _next_abc = 0
@@ -357,19 +351,19 @@ class window:
             KI_START_PATH_FINDER = True
             while KI_START_PATH_FINDER == True:
                 if self.log == True:
-                    print("KI_PATH_FINDER:              Position:",self.position, "Ziel:", self.goal)
+                    print("KI_path_finder:              Position:",self.position, "Ziel:", self.goal)
                 if int(_start[0]) > int(_ziel[0]): # Wenn buchtsabe als zahl größer ist. verkleinern
                     _next_abc = -1
-                elif int(_start[0]) < int(_ziel[0]):
+                elif int(_start[0]) < int(_ziel[0]): # Wenn buchtsabe als zahl kleiner ist. vergrößern
                     _next_abc = 1
-                elif int(_start[0]) == int(_ziel[0]):
-                    if int(_start[1]) > int(_ziel[1]):
+                elif int(_start[0]) == int(_ziel[0]): # wenn Buchstaben sind gleich.
+                    if int(_start[1]) > int(_ziel[1]): # wenn zahl ist gröber. verkleinern
                         _next_123 = -1
-                    elif int(_start[1]) < int(_ziel[1]):
+                    elif int(_start[1]) < int(_ziel[1]): # wenn zahl ist kleiner. vergrößern.
                         _next_123 = 1
-                    elif int(_start[1]) == int(_ziel[1]):
+                    elif int(_start[1]) == int(_ziel[1]):# wenn zahl ist gleich. ende
                         if self.log == True:
-                            print("KI_PATH_FINDER:          Ziel wurde gefunden!")
+                            print("KI_path_finder:              Ziel wurde gefunden!")
 
                 if _next_123 == 0 and _next_abc == 0:
                     break
@@ -386,11 +380,11 @@ class window:
                 elif _next_123 == 1:
                     _next_123 = 0
                     if self.log == True:
-                        print("KI_path_finder:              zahl wird vergrößert")
+                        print("KI_path_finder:              Zahl wird vergrößert")
                     _start = str(_start[0])+str(int(_start[1])+1)
                 elif _next_123 == -1:
                     if self.log == True:
-                        print("KI_path_finder:              zahl wird verkleinert")
+                        print("KI_path_finder:              Zahl wird verkleinert")
                     _next_123 = 0
                     _start = str(_start[0])+str(int(_start[1])-1)
 
@@ -440,7 +434,8 @@ def read_resolution(default_x, default_y, pos, log):
         time.sleep(10)
         exit()
 
-
+# Name: main()
+# Funktion: liest x und y aus und erstellt das objekt main_window
 def main():
     screen_x = int(int(read_resolution(default_x, default_y, "x", log))/100*50)
     screen_y = int(int(read_resolution(default_x, default_y, "y", log))/100*50)
