@@ -15,7 +15,7 @@ default_x = 480
 default_y = 320
 # Programm name
 programm_name = "RobotGUI"
-log = True
+log = False
 ###############
 
 class window:
@@ -84,9 +84,6 @@ class window:
 
             if self.current_position == 2: # Wenn User macht den Ersten klick in ein Feld.
                 self.first_position = self.position
-                self.draw_current_spot()
-            elif self.current_position == 3: # Wenn User klickt auf das selbe felf
-                print("init:                Das ist das Selbe Feld")
             elif self.current_position == 4: # Wenn User macht ein Klick ein anderes Feld was nicht das gleiche ist wie zuvor.
                 self.goal = self.position
                 self.KI_path_finder()
@@ -346,13 +343,11 @@ class window:
                 if str(_ziel[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
                     _ziel = str(i[1])+str(_ziel[1])   # und speichere ihn ab
 
-        if _start == _ziel:
-            if self.log == True:
-                print("KI_path_finder:              Ziel ist gelich wie aktuelle Position")
         else:
             KI_START_PATH_FINDER = True
             while KI_START_PATH_FINDER == True:
-                print("KI_START_PATH_FINDER:        Start:", _start, "Ziel:", _ziel)
+                if self.log == True:
+                    print("KI_PATH_FINDER:              Position:",self.position, "Ziel:", self.goal)
                 if int(_start[0]) > int(_ziel[0]): # Wenn buchtsabe als zahl größer ist. verkleinern
                     _next_abc = -1
                 elif int(_start[0]) < int(_ziel[0]):
@@ -363,7 +358,8 @@ class window:
                     elif int(_start[1]) < int(_ziel[1]):
                         _next_123 = 1
                     elif int(_start[1]) == int(_ziel[1]):
-                        print("Ziel gefunden")
+                        if self.log == True:
+                            print("KI_PATH_FINDER:          Ziel wurde gefunden!")
 
                 if _next_123 == 0 and _next_abc == 0:
                     break
