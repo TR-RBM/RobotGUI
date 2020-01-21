@@ -251,25 +251,17 @@ class window:
             if self.log == True:
                 print("KI_path_finder:              Ziel ist gelich wie aktuelle Position")
         else:
-            KI_START_PATH_FINDER = True
+            KI_START_PATH_FINDER = True:
             while KI_START_PATH_FINDER == True:
                 for i in self.spots_char:
-                    if self.position[0] == i: # Wenn Buchstabe ist gleich: geh zum Ziel hoch oder runter.
-                        print("pos:", self.position, "goal:",self.goal)
-                        if int(self.position[1]) > int(self.goal[1]):
+                    if self.current_position[0] == i:
+                        if int(self.current_position[1]) > int(self.goal[1]):
                             self.next_step = int(-1)
-                            if self.log == True:
-                                print("KI_path_finder:          POS",self.position,"go -1h")
-                        elif int(self.position[1]) < int(self.goal[1]):
+                        elif int(self.current_position[1]) < int(self.goal[1]):
                             self.next_step = int(1)
-                            if self.log == True:
-                                print("KI_path_finder:          POS",self.position,"go +1h")
-                        elif int(self.position[1]) == int(self.goal[1]):
+                        elif int(self.current_position[1]) == int(self.goal[1]):
                             self.netx_step = int(0)
-                    # else:
-                    #     for x in spots:
-                    #     if self.current_position[1] == x
-
+                        
 
 
     def draw_current_spot(self):
