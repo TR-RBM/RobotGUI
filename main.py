@@ -26,6 +26,7 @@ class window:
         while True:
 
             # Set background and draw grid
+            # Set background and draw grid
             if self.first_run == True:
                 self.win.setBackground("white")
                 # v =vertikal / h = horizontal
@@ -34,14 +35,21 @@ class window:
                 _laenge_nach_unten = 80
                 _linker_abstand = 0
                 _laenge_nach_rechts = 80
-
                 _screen_x = (screen_x/100*80)
                 _screen_y = (screen_y/100*80)
 
                 vobabst = int(_screen_y/100*_oberer_abstand)    # Vertikaler oberer abstand
                 vlnu   = int(screen_y/100*_laenge_nach_unten)   # Vertikale länge nach unten
                 hliabst = int(_screen_x/100*_linker_abstand)    # horizontaler linker abstand
-
+                obere_linie = Line(Point(0,1), Point(_screen_x, 1))
+                linke_linie = Line(Point(1,0), Point(1, _screen_y))
+                obere_linie.setWidth(2)
+                linke_linie.setWidth(2)
+                obere_linie.draw(self.win)
+                linke_linie.draw(self.win)
+                message = Text(Point(screen_x/100*30,_screen_y/100*110), "Bitte wähle einen positionpunkt indem du mit der Maus auf ein Feld drückst.")
+                message.draw(self.win)
+                #self.v0x = int(_screen_x, 1)
                 self.v1x = int(_screen_x/7*1)
                 self.v2x = int(_screen_x/7*2)
                 self.v3x = int(_screen_x/7*3)
@@ -50,59 +58,34 @@ class window:
                 self.v6x = int(_screen_x/7*6)
                 self.v7x = int(_screen_x/7*7)
 
+
+
                 self.h1y = int(_screen_y/5*1)
                 self.h2y = int(_screen_y/5*2)
                 self.h3y = int(_screen_y/5*3)
                 self.h4y = int(_screen_y/5*4)
                 self.h5y = int(_screen_y/5*5)
 
-                v1 = Line(Point(self.v1x, vobabst), Point(self.v1x, vlnu))
-                v2 = Line(Point(self.v2x, vobabst), Point(self.v2x, vlnu))
-                v3 = Line(Point(self.v3x, vobabst), Point(self.v3x, vlnu))
-                v4 = Line(Point(self.v4x, vobabst), Point(self.v4x, vlnu))
-                v5 = Line(Point(self.v5x, vobabst), Point(self.v5x, vlnu))
-                v6 = Line(Point(self.v6x, vobabst), Point(self.v6x, vlnu))
-                v7 = Line(Point(self.v7x, vobabst), Point(self.v7x, vlnu))
+                self.v = [self.v1x, self.v2x, self.v3x, self.v4x, self.v5x, self.v6x, self.v7x]
+                self.h = [self.h1y, self.h2y, self.h3y, self.h4y, self.h5y]
+                for i in self.v :
+                    vx = Line(Point(i, vobabst), Point(i, vlnu))
+                    vx.setWidth(2)
+                    vx.draw(self.win)
+                for i in self.h :
+                    hy = Line(Point(hliabst, i), Point(_screen_x, i))
+                    hy.setWidth(2)
+                    hy.draw(self.win)
+                self.first_run = False
 
-                h1 = Line(Point(hliabst, self.h1y), Point(_screen_x, self.h1y))
-                h2 = Line(Point(hliabst, self.h2y), Point(_screen_x, self.h2y))
-                h3 = Line(Point(hliabst, self.h3y), Point(_screen_x, self.h3y))
-                h4 = Line(Point(hliabst, self.h4y), Point(_screen_x, self.h4y))
-                h5 = Line(Point(hliabst, self.h5y), Point(_screen_x, self.h5y))
-
-                v1.draw(self.win)
-                v2.draw(self.win)
-                v3.draw(self.win)
-                v4.draw(self.win)
-                v5.draw(self.win)
-                v6.draw(self.win)
-                v7.draw(self.win)
-                h1.draw(self.win)
-                h2.draw(self.win)
-                h3.draw(self.win)
-                h4.draw(self.win)
-                h5.draw(self.win)
-
-            self.position = self.get_current_position()
-            self.current_position = self.check_current_position()
-
-            if self.current_position == 2: # Wenn User macht den Ersten klick in ein Feld.
-                self.first_position = self.position
-                self.draw_current_spot()
-
-            elif self.current_position == 3: # Wenn User macht ein Klick ein anderes Feld was nicht das gleiche ist wie zuvor.
-                self.goal = self.current_position
-                self.KI_path_finder()
-            elif self.current_position == 4:
-                self.goal = self.position
-                self.KI_path_finder()
+            self.KI_path_finder()
 
 
 
-            #self.draw_message()
 
-        # Name: init_global_variablesx( %%Hier alle localen Variablen die in Globale umgewandelt werden sollen)
-        # Funktion: Initiert alle Variablen die von allen Funtkionen innerhalb der Klasse genutz werden sollen.
+
+
+
     def init_global_variablesx(self, screen_x, screen_y, win, log):
         if log == True:
             _init_vars_time_start = time.time() #* 1000.0
@@ -117,8 +100,14 @@ class window:
         self.current_position = ""
         self.first_klick = True
         self.generate_vars = True
-        self.spots_char = ["A","B","C","D","E","F","G"]
-        self.spots=["A1" ,"A2" , "A3", "A4", "A5","B1", "B2", "B3", "B4", "B5","C1", "C2", "C3", "C4", "C5","D1", "D2", "D3", "D4", "D5","E1" ,"E2" ,"E3" ,"E4" ,"E5","F1", "F2", "F3", "F4" ,"F5" ,"G1" ,"G2" ,"G3" , "G4", "G5"]
+        self.spots_char = [["A",1],["B",2],["C",3],["D",4],["E",5],["F",6],["G",7]]
+        self.spots=["A1" ,"A2" , "A3", "A4", "A5",
+                    "B1", "B2", "B3", "B4", "B5",
+                    "C1", "C2", "C3", "C4", "C5",
+                    "D1", "D2", "D3", "D4", "D5",
+                    "E1" ,"E2" ,"E3" ,"E4" ,"E5",
+                    "F1", "F2", "F3", "F4" ,"F5" ,
+                    "G1" ,"G2" ,"G3" , "G4", "G5"]
         for i in self.spots:
             if i[0] == "A":
                 execute_string = "self."+i+" =\"1"+i[1]+"\""
@@ -137,12 +126,10 @@ class window:
             exec(execute_string)
         if self.log == True:
             _init_vars_time_end = time.time() #* 1000.0
-            print(_init_vars_time_start, "\n", _init_vars_time_end)
             _init_vars_time = _init_vars_time_end - _init_vars_time_start
             print("init_global_variablesx:      Job done in", _init_vars_time, "ms")
             del _init_vars_time, _init_vars_time_end, _init_vars_time_start
-
-    # name: get_current_position( float: self.xm , float: self.ym)
+    # name: get_current_position( float: XM , float: ym, bool: log)
     # Funktion: liest Mausklick und gibt zurück in welches feld geklickt wurde.
     def get_current_position(self):
                     position = self.win.getMouse()
@@ -223,9 +210,8 @@ class window:
                     if self.log == True:
                         print("get_current_position:        Es wurde:", _out , "gedrückt")
                     return _out
-
     # name: check_current_position()
-    # Funktion: Gibt zurück ob das gleiche Feld wie vorher gedrückt wurde oder ob ein anderes feld gedrückt wurde.
+    # Funktion: Überprüfe ob ein Bereich mehrfach gedrückt wurde
     def check_current_position(self):
         if self.position == "0":
             if self.log == True:
@@ -246,24 +232,8 @@ class window:
                 print("check_current_position:      4 - Es wurde auf ein neues Feld gedrückt.")
             return 4 # Wenn klick auf ein neues Feld.
 
-    def KI_path_finder(self):
-        if self.current_position == self.goal:
-            if self.log == True:
-                print("KI_path_finder:              Ziel ist gelich wie aktuelle Position")
-        else:
-            KI_START_PATH_FINDER = True:
-            while KI_START_PATH_FINDER == True:
-                for i in self.spots_char:
-                    if self.current_position[0] == i:
-                        if int(self.current_position[1]) > int(self.goal[1]):
-                            self.next_step = int(-1)
-                        elif int(self.current_position[1]) < int(self.goal[1]):
-                            self.next_step = int(1)
-                        elif int(self.current_position[1]) == int(self.goal[1]):
-                            self.netx_step = int(0)
-                        
-
-
+    # name: draw_current_spot
+    # Funktion: zeichnet den aktuell ausgewählten Ort
     def draw_current_spot(self):
         for i in self.spots:
             if i[0] == "A":
@@ -334,6 +304,8 @@ class window:
                 exec(execute_string)
                 execute_string = "self.pint"+str(i)+".setFill(\"red\")"
                 exec(execute_string)
+                execute_string = "self.pint"+str(i)+".setWidth(2)"
+                exec(execute_string)
                 execute_string = "self.pint"+str(i)+".draw(self.win)"
                 exec(execute_string)
             if self.position == i:
@@ -346,25 +318,86 @@ class window:
                 exec(execute_string)
         self.generate_vars = False
 
-    #def draw_message(self):
-        #if message != "" :
-        #    message.undraw(self.win)
-    #    msg1="Außerhalb des Breiches."
-    #    msg2=str(self.position)+" ist die aktuelle start Position."
-    #    msg3="Der gewünschte Platz ist bereits die aktuelle Position."+str(self.old_position)
-    #    msg4=str(self.old_position)+"ist die aktuelle Position."
-    #    msg5=str(self.position)+"wurde gedückt."
-    #    print(self.check_current_position())
-    #    if self.check_current_position() == 1 :
-    #        message = Text(Point(self.screen_x/100*90,60), msg1)
-    #    elif self.check_current_position() == 2 :
-    #        message = Text(Point(self.screen_x/100*90,60), msg2)
-    #    elif self.check_current_position() == 3 :
-    #        message = Text(Point(self.screen_x/100*90,60), msg3)
-    #    elif self.check_current_position() == 4 :
-    #        message = Text(Point(self.screen_x/100*90,60), msg4 + msg5)
-    #    message.draw(self.win)
+    # Name: KI_PATH_FINDER
+    # Funktion: Nach dem eine Startposition und ein Ziel gesetzt wurde, geht die KI zu dem gewählten Ort.
+    def KI_path_finder(self):
+        if self.first_position == "":
+            if self.log == True:
+                print("KI_path_finder:              Bitte ersten Start wählen.")
+            self.first_position = self.get_current_position()
+            self.position = self.first_position
+            self.draw_current_spot()
+            if self.log == True:
+                print("KI_path_finder:              Bitte Ziel wählen.")
+            self.goal = self.get_current_position()
+            _start = self.first_position
+            if self.log == True:
+                print("KI_path_finder:              Start=",self.first_position, " Ziel=",self.goal)
+        else:
+            if self.log == True:
+                print("KI_path_finder:              Bitte Ziel wählen.")
+            self.goal = self.get_current_position()
+            _start = self.position
+            if self.log == True:
+                print("KI_path_finder:              Start=",self.first_position, " Ziel=",self.goal)
+        _start = self.first_position
+        _ziel = self.goal
+        _next_abc = 0
+        _next_123 = 0
 
+        #Convert char to int:
+        for i in self.spots_char:
+            if str(_start[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
+                _start = str(i[1])+str(_start[1])   # und speichere ihn ab
+            for i in self.spots_char:
+                if str(_ziel[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
+                    _ziel = str(i[1])+str(_ziel[1])   # und speichere ihn ab
+
+        else:
+            KI_START_PATH_FINDER = True
+            while KI_START_PATH_FINDER == True:
+                if self.log == True:
+                    print("KI_PATH_FINDER:              Position:",self.position, "Ziel:", self.goal)
+                if int(_start[0]) > int(_ziel[0]): # Wenn buchtsabe als zahl größer ist. verkleinern
+                    _next_abc = -1
+                elif int(_start[0]) < int(_ziel[0]):
+                    _next_abc = 1
+                elif int(_start[0]) == int(_ziel[0]):
+                    if int(_start[1]) > int(_ziel[1]):
+                        _next_123 = -1
+                    elif int(_start[1]) < int(_ziel[1]):
+                        _next_123 = 1
+                    elif int(_start[1]) == int(_ziel[1]):
+                        if self.log == True:
+                            print("KI_PATH_FINDER:          Ziel wurde gefunden!")
+
+                if _next_123 == 0 and _next_abc == 0:
+                    break
+                if _next_abc == 1:
+                    _next_abc = 0
+                    if self.log == True:
+                        print("KI_path_finder:              Buchstabe wird vergrößert")
+                    _start = str(int(_start[0])+1)+str(_start[1])
+                elif _next_abc == -1:
+                    _next_abc = 0
+                    if self.log == True:
+                        print("KI_path_finder:              Buchstabe wird verkleinert")
+                    _start = str(int(_start[0])-1)+str(_start[1])
+                elif _next_123 == 1:
+                    _next_123 = 0
+                    if self.log == True:
+                        print("KI_path_finder:              zahl wird vergrößert")
+                    _start = str(_start[0])+str(int(_start[1])+1)
+                elif _next_123 == -1:
+                    if self.log == True:
+                        print("KI_path_finder:              zahl wird verkleinert")
+                    _next_123 = 0
+                    _start = str(_start[0])+str(int(_start[1])-1)
+
+                for i in self.spots_char:
+                    if str(_start[0]) == str(i[1]):         # Wenn Zahl in Liste ist, convertiere ihn zu dem passenden Buchstabe.
+                        self.position = str(i[0])+str(_start[1])   # und speichere ihn ab
+                        self.draw_current_spot()
 
 # Name: read_resolution ( int:STANDART_X_POS , int:STANDART_Y_POS, str: POS x/y/xy, log)
 # Nutzen: Liest die Bildschirmgröße
@@ -409,8 +442,8 @@ def read_resolution(default_x, default_y, pos, log):
 
 
 def main():
-    screen_x = int(int(read_resolution(default_x, default_y, "x", log))/100*90)
-    screen_y = int(int(read_resolution(default_x, default_y, "y", log))/100*90)
+    screen_x = int(int(read_resolution(default_x, default_y, "x", log))/100*50)
+    screen_y = int(int(read_resolution(default_x, default_y, "y", log))/100*50)
     win = GraphWin(programm_name, screen_x, screen_y)
     main_window = window(win,screen_x,screen_y, log)
 
