@@ -131,8 +131,8 @@ class window:
                     position = self.win.getMouse()
                     self.xm = position.getX()
                     self.ym = position.getY()
-                    if self.xm > self.v7x or self.ym > self.h5y :
-                        _out ="0"
+                    if self.xm > self.v7x or self.ym > self.h5y:
+                        _out ="00"
                     elif self.v1x >= self.xm >= 0 and  self.h1y >= self.ym >= 0:
                         _out = "A1"
                     elif self.v1x >= self.xm >= 0 and self.h2y >= self.ym >= self.h1y:
@@ -210,7 +210,7 @@ class window:
     # name: check_current_position()
     # Funktion: Überprüfe ob ein Bereich mehrfach gedrückt wurde
     def check_current_position(self):
-        if self.position == "0":
+        if self.position == "00":
             if self.log == True:
                 print("check_current_position:      1 - Klick ist außerhalb des Bereiches.")
             return 1 # Wenn außerhalb des Bereiches.
@@ -333,21 +333,22 @@ class window:
                 print("KI_path_finder:              Bitte Ziel wählen.")
             self.first_position = self.goal
             self.goal = self.get_current_position()
+        if self.goal != "0" or self.position != "0":
+            print("if")
+            print("goal:", self.goal, "pos:", self.goal)
+            print("goal:", type(self.goal), "pos:", type(self.goal))
+            _start = self.first_position
+            _ziel = self.goal
+            _next_abc = 0
+            _next_123 = 0
 
-        _start = self.first_position
-        _ziel = self.goal
-        _next_abc = 0
-        _next_123 = 0
-
-        #Convert char to int:
-        for i in self.spots_char:
-            if str(_start[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
-                _start = str(i[1])+str(_start[1])   # und speichere ihn ab
+            #Convert char to int:
             for i in self.spots_char:
-                if str(_ziel[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
-                    _ziel = str(i[1])+str(_ziel[1])   # und speichere ihn ab
-
-        else:
+                if str(_start[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
+                    _start = str(i[1])+str(_start[1])   # und speichere ihn ab
+                for i in self.spots_char:
+                    if str(_ziel[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
+                        _ziel = str(i[1])+str(_ziel[1])   # und speichere ihn ab
             KI_START_PATH_FINDER = True
             while KI_START_PATH_FINDER == True:
                 if self.log == True:
