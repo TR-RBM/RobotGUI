@@ -131,7 +131,7 @@ class window:
                     position = self.win.getMouse()
                     self.xm = position.getX()
                     self.ym = position.getY()
-                    if self.xm > self.v7x or self.ym > self.h5y :
+                    if self.xm > self.v7x or self.ym > self.h5y:
                         _out ="00"
                     elif self.v1x >= self.xm >= 0 and  self.h1y >= self.ym >= 0:
                         _out = "A1"
@@ -333,7 +333,6 @@ class window:
                 print("KI_path_finder:              Bitte Ziel wählen.")
             self.first_position = self.goal
             self.goal = self.get_current_position()
-
         if self.goal != "0" or self.position != "0":
             print("if")
             print("goal:", self.goal, "pos:", self.goal)
@@ -350,7 +349,6 @@ class window:
                 for i in self.spots_char:
                     if str(_ziel[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
                         _ziel = str(i[1])+str(_ziel[1])   # und speichere ihn ab
-
             KI_START_PATH_FINDER = True
             while KI_START_PATH_FINDER == True:
                 if self.log == True:
