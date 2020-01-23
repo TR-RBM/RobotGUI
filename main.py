@@ -132,7 +132,7 @@ class window:
                     self.xm = position.getX()
                     self.ym = position.getY()
                     if self.xm > self.v7x or self.ym > self.h5y :
-                        _out ="0"
+                        _out ="00"
                     elif self.v1x >= self.xm >= 0 and  self.h1y >= self.ym >= 0:
                         _out = "A1"
                     elif self.v1x >= self.xm >= 0 and self.h2y >= self.ym >= self.h1y:
@@ -210,7 +210,7 @@ class window:
     # name: check_current_position()
     # Funktion: Überprüfe ob ein Bereich mehrfach gedrückt wurde
     def check_current_position(self):
-        if self.position == "0":
+        if self.position == "00":
             if self.log == True:
                 print("check_current_position:      1 - Klick ist außerhalb des Bereiches.")
             return 1 # Wenn außerhalb des Bereiches.
