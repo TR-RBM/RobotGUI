@@ -334,20 +334,23 @@ class window:
             self.first_position = self.goal
             self.goal = self.get_current_position()
 
-        _start = self.first_position
-        _ziel = self.goal
-        _next_abc = 0
-        _next_123 = 0
+        if self.goal != "0" or self.position != "0":
+            print("if")
+            print("goal:", self.goal, "pos:", self.goal)
+            print("goal:", type(self.goal), "pos:", type(self.goal))
+            _start = self.first_position
+            _ziel = self.goal
+            _next_abc = 0
+            _next_123 = 0
 
-        #Convert char to int:
-        for i in self.spots_char:
-            if str(_start[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
-                _start = str(i[1])+str(_start[1])   # und speichere ihn ab
+            #Convert char to int:
             for i in self.spots_char:
-                if str(_ziel[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
-                    _ziel = str(i[1])+str(_ziel[1])   # und speichere ihn ab
+                if str(_start[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
+                    _start = str(i[1])+str(_start[1])   # und speichere ihn ab
+                for i in self.spots_char:
+                    if str(_ziel[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
+                        _ziel = str(i[1])+str(_ziel[1])   # und speichere ihn ab
 
-        else:
             KI_START_PATH_FINDER = True
             while KI_START_PATH_FINDER == True:
                 if self.log == True:
