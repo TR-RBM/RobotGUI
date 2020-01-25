@@ -93,9 +93,10 @@ class window:
         self.old_position = ""
         self.first_position = ""
         self.current_position = ""
+        self.goal = ""
         self.first_klick = True
         self.generate_vars = True
-        self.spots_char = [["A",1],["B",2],["C",3],["D",4],["E",5],["F",6],["G",7]]
+        self.spots_char = [["0",0],["A",1],["B",2],["C",3],["D",4],["E",5],["F",6],["G",7]]
         self.spots=["A1" ,"A2" , "A3", "A4", "A5",
                     "B1", "B2", "B3", "B4", "B5",
                     "C1", "C2", "C3", "C4", "C5",
@@ -318,31 +319,37 @@ class window:
     # Name: KI_PATH_FINDER
     # Funktion: Nach dem eine Startposition und ein Ziel gesetzt wurde, geht die KI zu dem gewählten Ort.
     def KI_path_finder(self):
-        if self.first_position == "": # Wenn noch kein Feld gedrückt wurde:
-            if self.log == True:
-                print("KI_path_finder:              Bitte ersten Start wählen.")
-            self.first_position = self.get_current_position()
-            self.position = self.first_position
-            self.draw_current_spot()
-            if self.log == True:
-                print("KI_path_finder:              Bitte Ziel wählen.")
-            self.goal = self.get_current_position()
-            _start = self.first_position
-        else: # Wenn schon mal ein Feld gedrückt wurde
-            if self.log == True:
-                print("KI_path_finder:              Bitte Ziel wählen.")
-            self.first_position = self.goal
-            self.goal = self.get_current_position()
-        if self.goal != "0" or self.position != "0":
-            print("if")
-            print("goal:", self.goal, "pos:", self.goal)
+            print("KI_path_finder:              EXEC KI_path_finder")
+            while self.position == "" or self.position == "00" or self.goal == "00" or self.position == self.goal:
+                if self.first_position == "": # Wenn noch kein Feld gedrückt wurde:
+                    if self.log == True:
+                        print("KI_path_finder:              Bitte ersten Start wählen.")
+                        self.first_position = self.get_current_position()
+                        self.position = self.first_position
+                        self.draw_current_spot()
+                if self.position != "" or self.position != "00":
+                    self.draw_current_spot()
+                    if self.log == True:
+                        print("KI_path_finder:              Start wurde gezeichnet")
+                    if self.log == True:
+                        print("KI_path_finder:              1Bitte Ziel wählen.")
+                    self.goal = self.get_current_position()
+                else: # Wenn schon mal ein Feld gedrückt wurde
+                    if self.log == True:
+                        print("KI_path_finder:              2Bitte Ziel wählen.")
+                    self.first_position = self.goal
+                    self.goal = self.get_current_position()
+                    if self.goal != "00" or self.position != "0":
+                        print("if")
+            print("goal:", self.goal, "pos:", self.position)
             print("goal:", type(self.goal), "pos:", type(self.goal))
-            _start = self.first_position
+            _start = self.position
             _ziel = self.goal
             _next_abc = 0
             _next_123 = 0
 
             #Convert char to int:
+            print("KI_path_finder               Aktuelle Position =", _start, "Ziel:", _ziel)
             for i in self.spots_char:
                 if str(_start[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
                     _start = str(i[1])+str(_start[1])   # und speichere ihn ab
