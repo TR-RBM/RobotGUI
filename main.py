@@ -321,13 +321,13 @@ class window:
     def KI_path_finder(self):
             print("KI_path_finder:              EXEC KI_path_finder")
             while self.position == "" or self.position == "00" or self.goal == "00" or self.position == self.goal:
-                if self.first_position == "": # Wenn noch kein Feld gedrückt wurde:
+                if self.first_position == "" or self.first_position =="00" : # Wenn noch kein Feld gedrückt wurde:
                     if self.log == True:
                         print("KI_path_finder:              Bitte ersten Start wählen.")
                         self.first_position = self.get_current_position()
                         self.position = self.first_position
                         self.draw_current_spot()
-                if self.position != "" or self.position != "00":
+                if self.position != "00":
                     self.draw_current_spot()
                     if self.log == True:
                         print("KI_path_finder:              Start wurde gezeichnet")
@@ -338,9 +338,9 @@ class window:
                     if self.log == True:
                         print("KI_path_finder:              2Bitte Ziel wählen.")
                     self.first_position = self.goal
+                    print("first",self.first_position)
                     self.goal = self.get_current_position()
-                    if self.goal != "00" or self.position != "0":
-                        print("if")
+                    print("goal" ,self.goal)
             print("goal:", self.goal, "pos:", self.position)
             print("goal:", type(self.goal), "pos:", type(self.goal))
             _start = self.position
