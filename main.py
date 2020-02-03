@@ -81,7 +81,7 @@ class window:
                     hy.setWidth(2)
                     hy.draw(self.win)
                 for i in self.m :
-                    my = Line(Point(screen_y, i), Point(screen_x, i))
+                    my = Line(Point(_screen_y, i), Point(screen_x, i))
                     my.setWidth(2)
                     my.draw(self.win)
             self.first_run = False
@@ -142,7 +142,11 @@ class window:
                     position = self.win.getMouse()
                     self.xm = position.getX()
                     self.ym = position.getY()
-                    if self.xm > self.v7x or self.ym > self.h5y:
+                    print (self.xm ,self.ym)
+                    if self.xm >= self.v7x and self.ym <= self.h5y :
+                        print("test")
+                        _out = "11"
+                    elif self.xm > self.v7x and self.ym > self.h5y:
                         _out ="00"
                     elif self.v1x >= self.xm >= 0 and  self.h1y >= self.ym >= 0:
                         _out = "A1"
@@ -330,13 +334,18 @@ class window:
     # Funktion: Nach dem eine Startposition und ein Ziel gesetzt wurde, geht die KI zu dem gewählten Ort.
     def KI_path_finder(self):
             print("KI_path_finder:              EXEC KI_path_finder")
-            while self.position == "" or self.position == "00" or self.goal == "00" or self.position == self.goal:
-                if self.first_position == "" or self.first_position =="00" or self.position == "00": # Wenn noch kein Feld gedrückt wurde:
+            while self.position == "" or self.position == "00" or self.goal == "00" or self.position == self.goal self.first_position =="11" or self.position == "11":
+                if self.first_position == "" or self.first_position =="00" or self.position == "00" : # Wenn noch kein Feld gedrückt wurde:
                     if self.log == True:
                         print("KI_path_finder:              Bitte ersten Start wählen.")
                         self.first_position = self.get_current_position()
                         self.position = self.first_position
                         self.draw_current_spot()
+                if self.first_position =="11" or self.position == "11" :
+                    print("KI_path_finder:              Bitte ersten Start wählen.")
+                    self.first_position = self.get_current_position()
+                    self.position = self.first_position
+                    self.draw_current_spot()
                 if self.position != "00":
                     self.draw_current_spot()
                     if self.log == True:
