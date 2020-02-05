@@ -28,15 +28,15 @@ class window:
             # Set background and draw grid
             # Set background and draw grid
             if self.first_run == True:
-                self.win.setBackground("white")
+                self.win.setBackground("Gray")
                 # v =vertikal / h = horizontal
 
                 _oberer_abstand = 0
                 _laenge_nach_unten = 80
                 _linker_abstand = 0
                 _laenge_nach_rechts = 80
-                _screen_x = (screen_x/100*80)
-                _screen_y = (screen_y/100*80)
+                _screen_x = (screen_x/100*60)
+                _screen_y = (screen_y/100*60)
 
                 vobabst = int(_screen_y/100*_oberer_abstand)    # Vertikaler oberer abstand
                 vlnu   = int(screen_y/100*_laenge_nach_unten)   # Vertikale länge nach unten
@@ -48,8 +48,11 @@ class window:
                 obere_linie.draw(self.win)
                 linke_linie.draw(self.win)
                 message = Text(Point(screen_x/100*30,_screen_y/100*110), "Bitte wähle einen positionpunkt indem du mit der Maus auf ein Feld drückst.")
+                #messagebox = Text(Point(screen_x/100*120,1), "MessageBox")
                 message.draw(self.win)
-                #self.v0x = int(_screen_x, 1)
+                #messagebox.draw(self.win)
+                self.m1x = int(_screen_x/100*110)
+                self.m2x = int(_screen_x/100*169)
                 self.v1x = int(_screen_x/7*1)
                 self.v2x = int(_screen_x/7*2)
                 self.v3x = int(_screen_x/7*3)
@@ -58,26 +61,33 @@ class window:
                 self.v6x = int(_screen_x/7*6)
                 self.v7x = int(_screen_x/7*7)
 
-
-
                 self.h1y = int(_screen_y/5*1)
                 self.h2y = int(_screen_y/5*2)
                 self.h3y = int(_screen_y/5*3)
                 self.h4y = int(_screen_y/5*4)
                 self.h5y = int(_screen_y/5*5)
+                self.m1y = int(1)
+                self.m2y = self.h5y
 
-                self.v = [self.v1x, self.v2x, self.v3x, self.v4x, self.v5x, self.v6x, self.v7x]
+                self.v = [self.v1x, self.v2x, self.v3x, self.v4x, self.v5x, self.v6x, self.v7x ,self.m1x, self.m2x]
                 self.h = [self.h1y, self.h2y, self.h3y, self.h4y, self.h5y]
+                self.m = [self.m1y, self.m2y]
                 for i in self.v :
-                    vx = Line(Point(i, vobabst), Point(i, vlnu))
+                    vx = Line(Point(i, vobabst), Point(i, _screen_y))
                     vx.setWidth(2)
                     vx.draw(self.win)
                 for i in self.h :
                     hy = Line(Point(hliabst, i), Point(_screen_x, i))
                     hy.setWidth(2)
                     hy.draw(self.win)
-                self.first_run = False
+                for i in self.m :
+                    my = Line(Point(_screen_y, i), Point(screen_x, i))
+                    my.setWidth(2)
+                    my.draw(self.win)
+            self.first_run = False
+            self.check_current_position()
             self.KI_path_finder()
+
 
     # Name: init_global_variablesx
     # Funktion: Hier werden alle "globales Variabeln definiert"
@@ -93,9 +103,10 @@ class window:
         self.old_position = ""
         self.first_position = ""
         self.current_position = ""
+        self.goal = ""
         self.first_klick = True
         self.generate_vars = True
-        self.spots_char = [["A",1],["B",2],["C",3],["D",4],["E",5],["F",6],["G",7]]
+        self.spots_char = [["0",0],["A",1],["B",2],["C",3],["D",4],["E",5],["F",6],["G",7]]
         self.spots=["A1" ,"A2" , "A3", "A4", "A5",
                     "B1", "B2", "B3", "B4", "B5",
                     "C1", "C2", "C3", "C4", "C5",
@@ -131,7 +142,10 @@ class window:
                     position = self.win.getMouse()
                     self.xm = position.getX()
                     self.ym = position.getY()
-                    if self.xm > self.v7x or self.ym > self.h5y:
+                    print (self.xm ,self.ym)
+                    if self.xm >= self.v7x and self.ym <= self.h5y :
+                        _out = "11"
+                    elif self.ym > self.h5y:
                         _out ="00"
                     elif self.v1x >= self.xm >= 0 and  self.h1y >= self.ym >= 0:
                         _out = "A1"
@@ -214,8 +228,8 @@ class window:
             if self.log == True:
                 print("check_current_position:      1 - Klick ist außerhalb des Bereiches.")
             return 1 # Wenn außerhalb des Bereiches.
-        elif self.old_position == "":
-            self.old_position = self.position
+        elif self.old_position != "":
+            #self.old_position = self.position
             if self.log == True:
                 print("check_current_position:      2 - Erster klick in einem Feld wurde erkannt.")
             return 2 # Wenn erster klick in ein bereich
@@ -224,7 +238,7 @@ class window:
                 print("check_current_position:      3 - Das gleiche Feld wurde gedrückt.")
             return 3 # Wenn klick auf das gleiche feld wie vorher
         elif self.position != self.old_position :
-            self.old_position = self.position
+            #self.old_position = self.position
             if self.log == True:
                 print("check_current_position:      4 - Es wurde auf ein neues Feld gedrückt.")
             return 4 # Wenn klick auf ein neues Feld.
@@ -311,38 +325,44 @@ class window:
                 execute_string = "self.pint"+str(i)+".setFill(\"red\")"
                 exec(execute_string)
             else:
-                execute_string = "self.pint"+str(i)+".setFill(\"white\")"
+                execute_string = "self.pint"+str(i)+".setFill(\"Gray\")"
                 exec(execute_string)
         self.generate_vars = False
 
     # Name: KI_PATH_FINDER
     # Funktion: Nach dem eine Startposition und ein Ziel gesetzt wurde, geht die KI zu dem gewählten Ort.
     def KI_path_finder(self):
-        if self.first_position == "": # Wenn noch kein Feld gedrückt wurde:
-            if self.log == True:
-                print("KI_path_finder:              Bitte ersten Start wählen.")
-            self.first_position = self.get_current_position()
-            self.position = self.first_position
-            self.draw_current_spot()
-            if self.log == True:
-                print("KI_path_finder:              Bitte Ziel wählen.")
-            self.goal = self.get_current_position()
-            _start = self.first_position
-        else: # Wenn schon mal ein Feld gedrückt wurde
-            if self.log == True:
-                print("KI_path_finder:              Bitte Ziel wählen.")
-            self.first_position = self.goal
-            self.goal = self.get_current_position()
-        if self.goal != "0" or self.position != "0":
-            print("if")
-            print("goal:", self.goal, "pos:", self.goal)
+            print("KI_path_finder:              EXEC KI_path_finder")
+            while self.position == "" or self.position == "00" or self.goal == "00" or self.position == self.goal or self.position == "11" or self.goal == "11":
+                if self.first_position == "" or self.first_position =="00" or self.position == "00" or self.position == "11" or self.first_position =="11": # Wenn noch kein Feld gedrückt wurde:
+                    if self.log == True:
+                        print("KI_path_finder:              Bitte ersten Start wählen.")
+                        self.first_position = self.get_current_position()
+                        self.position = self.first_position
+                        self.draw_current_spot()
+                if self.position != "00" and self.position != "11":
+                    self.draw_current_spot()
+                    if self.log == True:
+                        print("KI_path_finder:              Start wurde gezeichnet")
+                    if self.log == True:
+                        print("KI_path_finder:              1Bitte Ziel wählen.")
+                    self.goal = self.get_current_position()
+                else: # Wenn schon mal ein Feld gedrückt wurde
+                    if self.log == True:
+                        print("KI_path_finder:              2Bitte Ziel wählen.")
+                    self.first_position = self.goal
+                    print("first",self.first_position)
+                    self.goal = self.get_current_position()
+                    print("goal" ,self.goal)
+            print("goal:", self.goal, "pos:", self.position)
             print("goal:", type(self.goal), "pos:", type(self.goal))
-            _start = self.first_position
+            _start = self.position
             _ziel = self.goal
             _next_abc = 0
             _next_123 = 0
 
             #Convert char to int:
+            print("KI_path_finder               Aktuelle Position =", _start, "Ziel:", _ziel)
             for i in self.spots_char:
                 if str(_start[0]) == str(i[0]):         # Wenn Buchstabe in Liste ist, convertiere ihn zu dem passenden wert.
                     _start = str(i[1])+str(_start[1])   # und speichere ihn ab
@@ -438,8 +458,8 @@ def read_resolution(default_x, default_y, pos, log):
 # Name: main()
 # Funktion: liest x und y aus und erstellt das objekt main_window
 def main():
-    screen_x = int(int(read_resolution(default_x, default_y, "x", log))/100*50)
-    screen_y = int(int(read_resolution(default_x, default_y, "y", log))/100*50)
+    screen_x = int(int(read_resolution(default_x, default_y, "x", log))/100*60)
+    screen_y = int(int(read_resolution(default_x, default_y, "y", log))/100*60)
     win = GraphWin(programm_name, screen_x, screen_y)
     main_window = window(win,screen_x,screen_y, log)
 
