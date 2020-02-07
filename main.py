@@ -59,7 +59,7 @@ class window:
                 Sign.draw(self.win)
                 Sign = Image(Point(screen_x/100*93,_screen_y/100*50), "rechts.gif")
                 Sign.draw(self.win)
-
+                
                 self.m1x = int(_screen_x/100*110)
                 self.m2x = int(_screen_x/100*169)
                 self.v1x = int(_screen_x/7*1)
