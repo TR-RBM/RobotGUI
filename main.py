@@ -156,6 +156,10 @@ class window:
                         _out = "UP"
                     elif self.screen_x/100*85 >= self.xm >= self.screen_x/100*80 and self._screen_y/100*85 >= self.ym >= self._screen_y/100*75 :
                         _out = "DO"
+                    elif self.screen_x/100*75 >= self.xm >= self.screen_x/100*70 and self._screen_y/100*55 >= self.ym >= self._screen_y/100*45 :
+                        _out = "LE"
+                    elif self.screen_x/100*93 >= self.xm >= self.screen_x/100*88 and self._screen_y/100*55 >= self.ym >= self._screen_y/100*45 :
+                        _out = "RE"
                     elif self.xm >= self.v7x and self.ym <= self.h5y :
                         _out = "11"
                     elif self.ym > self.h5y:
