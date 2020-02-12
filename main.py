@@ -154,6 +154,8 @@ class window:
                     print (self.xm ,self.ym)
                     if self.screen_x/100*85 >= self.xm >= self.screen_x/100*80 and self._screen_y/100*25 >= self.ym >= self._screen_y/100*15 :
                         _out = "UP"
+                    elif self.screen_x/100*85 >= self.xm >= self.screen_x/100*80 and self._screen_y/100*85 >= self.ym >= self._screen_y/100*75 :
+                        _out = "DO"
                     elif self.xm >= self.v7x and self.ym <= self.h5y :
                         _out = "11"
                     elif self.ym > self.h5y:
