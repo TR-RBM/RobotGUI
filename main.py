@@ -36,30 +36,30 @@ class window:
                 _linker_abstand = 0
                 _laenge_nach_rechts = 80
                 _screen_x = (screen_x/100*60)
-                _screen_y = (screen_y/100*60)
+                self._screen_y = (screen_y/100*60)
 
-                vobabst = int(_screen_y/100*_oberer_abstand)    # Vertikaler oberer abstand
+                vobabst = int(self._screen_y/100*_oberer_abstand)    # Vertikaler oberer abstand
                 vlnu   = int(screen_y/100*_laenge_nach_unten)   # Vertikale länge nach unten
                 hliabst = int(_screen_x/100*_linker_abstand)    # horizontaler linker abstand
                 obere_linie = Line(Point(0,1), Point(_screen_x, 1))
-                linke_linie = Line(Point(1,0), Point(1, _screen_y))
+                linke_linie = Line(Point(1,0), Point(1, self._screen_y))
                 obere_linie.setWidth(2)
                 linke_linie.setWidth(2)
                 obere_linie.draw(self.win)
                 linke_linie.draw(self.win)
-                message = Text(Point(screen_x/100*30,_screen_y/100*110), "Bitte wähle einen positionpunkt indem du mit der Maus auf ein Feld drückst.")
+                message = Text(Point(screen_x/100*30,self._screen_y/100*110), "Bitte wähle einen positionpunkt indem du mit der Maus auf ein Feld drückst.")
                 #messagebox = Text(Point(screen_x/100*120,1), "MessageBox")
                 message.draw(self.win)
                 #messagebox.draw(self.win)
-                Sign = Image(Point(screen_x/100*83,_screen_y/100*20), "up.gif")
+                Sign = Image(Point(screen_x/100*83,self._screen_y/100*20), "up.gif")
                 Sign.draw(self.win)
-                Sign = Image(Point(screen_x/100*83,_screen_y/100*80), "down.gif")
+                Sign = Image(Point(screen_x/100*83,self._screen_y/100*80), "down.gif")
                 Sign.draw(self.win)
-                Sign = Image(Point(screen_x/100*73,_screen_y/100*50), "links.gif")
+                Sign = Image(Point(screen_x/100*73,self._screen_y/100*50), "links.gif")
                 Sign.draw(self.win)
-                Sign = Image(Point(screen_x/100*93,_screen_y/100*50), "rechts.gif")
+                Sign = Image(Point(screen_x/100*93,self._screen_y/100*50), "rechts.gif")
                 Sign.draw(self.win)
-                
+
                 self.m1x = int(_screen_x/100*110)
                 self.m2x = int(_screen_x/100*169)
                 self.v1x = int(_screen_x/7*1)
@@ -70,11 +70,11 @@ class window:
                 self.v6x = int(_screen_x/7*6)
                 self.v7x = int(_screen_x/7*7)
 
-                self.h1y = int(_screen_y/5*1)
-                self.h2y = int(_screen_y/5*2)
-                self.h3y = int(_screen_y/5*3)
-                self.h4y = int(_screen_y/5*4)
-                self.h5y = int(_screen_y/5*5)
+                self.h1y = int(self._screen_y/5*1)
+                self.h2y = int(self._screen_y/5*2)
+                self.h3y = int(self._screen_y/5*3)
+                self.h4y = int(self._screen_y/5*4)
+                self.h5y = int(self._screen_y/5*5)
                 self.m1y = int(1)
                 self.m2y = self.h5y
 
@@ -82,7 +82,7 @@ class window:
                 self.h = [self.h1y, self.h2y, self.h3y, self.h4y, self.h5y]
                 self.m = [self.m1y, self.m2y]
                 for i in self.v :
-                    vx = Line(Point(i, vobabst), Point(i, _screen_y))
+                    vx = Line(Point(i, vobabst), Point(i, self._screen_y))
                     vx.setWidth(2)
                     vx.draw(self.win)
                 for i in self.h :
@@ -90,7 +90,7 @@ class window:
                     hy.setWidth(2)
                     hy.draw(self.win)
                 for i in self.m :
-                    my = Line(Point(_screen_y, i), Point(screen_x, i))
+                    my = Line(Point(self._screen_y, i), Point(screen_x, i))
                     my.setWidth(2)
                     my.draw(self.win)
             self.first_run = False
@@ -152,7 +152,9 @@ class window:
                     self.xm = position.getX()
                     self.ym = position.getY()
                     print (self.xm ,self.ym)
-                    if self.xm >= self.v7x and self.ym <= self.h5y :
+                    if self.screen_x/100*85 >= self.xm >= self.screen_x/100*80 and self._screen_y/100*25 >= self.ym >= self._screen_y/100*15 :
+                        _out = "UP"
+                    elif self.xm >= self.v7x and self.ym <= self.h5y :
                         _out = "11"
                     elif self.ym > self.h5y:
                         _out ="00"
